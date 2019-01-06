@@ -46,98 +46,256 @@ import { NgModule } from '@angular/core';
 
 @NgModule({
     imports: [...],
+    declarations: [...]
     exports: [...],
     providers: [...]
 })
-export class AppModule {
-
-}
+export class AppModule { }
                         </code>
                     </pre>
                 </section>
 
+                <!-- Angular components -->
+
                 <section>
-                  <p>Components</p>
-                  <p class="fragment">- combination of an HTML template and a component class that controls a portion of the screen<br>
-                  - class, decorator, metadata<br />
-                  - defined views<br />
-                  - use services</p>
+                    <section>
+                    <p>Components</p>
+                    <p class="fragment">- combination of an HTML template and a component class that controls a portion of the screen<br>
+                    - class, decorator, metadata<br />
+                    - defined views<br />
+                    - use services</p>
 <pre class="fragment">
     <code data-trim class="hljs javascript ">
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'my-app',
-    template: `<h1>Hello {{name}}</h1>`,
+    selector: 'ngt-component',
+    template: `
+        <h1>Hello {{ name }}</h1>
+    `,
     providers: [...]
 })
-export class AppComponent { name = 'Angular'; }
+export class NgtComponent { 
+    // Use protected so that the property is accessible from html
+    protected name = 'Angular';
+}
     </code>
 </pre>
-                </section>
-                <section>
-                    <p>The big picture</p>
-                    <img src="https://angular.io/generated/images/guide/architecture/overview2.png" alt="" class="custom-image">
-                  </section>
-                <section>
-                  <p>Templates, directives, and data binding</p>
-                  <p class="fragment">- combines HTML with Angular markup that can modify the HTML elements before they are displayed</p>
-                  <p class="fragment">- Event binding lets your app respond to user input</p>
-                  <p class="fragment">- Property binding lets you interpolate values that are computed from your application data into the HTML</p>
-                </section>
+                    </section>
 
-                <section>
-                    <p>Property binding - interpolation</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript ">
+                    <section>
+                        <p>Templates, directives, and data binding</p>
+                        <p class="fragment">- combines HTML with Angular markup that can modify the HTML elements before they are displayed</p>
+                        <p class="fragment">- Event binding lets your app respond to user input</p>
+                        <p class="fragment">- Property binding lets you interpolate values that are computed from your application data into the HTML</p>
+                    </section>
+
+                    <section>
+                        <p>Interpolation</p>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
 import { Component } from '@angular/core';
+
 @Component({
-  selector: 'my-app',
+  selector: 'ngt-component',
   template: `
-    <h1>{{title}}</h1>
-    <h2>My favorite car is: {{myCar}}</h2>
+    <h1>{{ title }}</h1>
+    <h2>My favorite car is: {{ myCar }}</h2>
     `
 })
-export class AppComponent {
-  title = 'Cars';
-  myCar = 'Mercedes';
+export class NgtComponent {
+  protected title = 'Cars';
+  protected myCar = 'Mercedes';
 }
-                        </code>
-                    </pre>
-                </section>
+                            </code>
+                        </pre>
+                    </section>
 
-                <section>
-                    <p>Event binding - event emitters</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript ">
+                    <section>
+                        <p>Property binding</p>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
 import { Component } from '@angular/core';
+
 @Component({
-  selector: 'my-app',
+  selector: 'ngt-component',
+  template: `
+    <h2>My favorite car is 
+        <span [innerHTML]="favouriteCar"></span>
+    </h2>
+    `
+})
+export class NgtComponent {
+  protected favouriteCar = 'Mercedes';
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Event binding</p>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'ngt-component',
   template: `
     <button (click)="notify()">My button</button>
     `
 })
-export class AppComponent {
+export class NgtComponent {
   
-  notify() {
+  protected notify(): void {
     console.log("The button was clicked")
   }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Two way data binding (banana in the box)</p>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'ngt-component',
+    template: `
+        <input [(ngModel)]="username" />
+    `
+})
+export class NgtComponent {
+  
+  protected username = 'Test';
+}
+                            </code>
+                        </pre>
+                    </section>
+                </section>
+
+                <!-- Inter-component communication -->
+                <section>
+                    <section>
+                        <p> Content Projection </p> <br />
+                        <p> - @Input and @Output properties </p>
+                        <p> - Using a parent component as a mediator </p>
+                        <p> - Using an injectable service as a mediator </p>
+                    </section>
+
+                    <section>
+                        <p> @Input and @Output properties </p> <br />
+                        <p> Think of a component as a black box with entry and exitdoors </p>
+                        <p> Properties marked as @Input() are used for getting data from the parent component </p>
+                        <p> Properties marked as @Output() are used for sending events (and data) from a component </p>
+                    </section>
+
+                    <section>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
+@Component({
+    selector: 'ngt-parent',
+    template: `
+        <ngt-child [renderInformation]="data"></ngt-child>
+    `
+})
+export class ParentComponent {
+    protected data = { a: 'test', b: 'data' };
+}
+
+@Component({
+    selector: 'ngt-child',
+    template: `
+        {{ renderInformation.a + renderInformation.b }}
+    `
+})
+export class ChildComponent {
+    @Input() renderInformation: { a: string, b: string };
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
+@Component({
+    selector: 'ngt-parent',
+    template: `
+        <ngt-child (click$)="logEvent($event)"></ngt-child>
+    `
+})
+export class ParentComponent {
+    protected logEvent(event): void {
+        console.log(event); // I have been clicked
+    }
+}
+
+@Component({
+    selector: 'ngt-child',
+    template: `
+        <button (click)="click$.emit('I have been clicked')">
+            Click me
+        </button>
+    `
+})
+export class ChildComponent {
+    @Ouptut() click$ = new EventEmitter();
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>The Mediator acts as a man in the middle</p>
+                        <p>A component A sends the data to a mediator, which passes the data to a component B</p>
+                        <p>Component A and Component B don’t know about each other A parent component can mediate siblings’ communications</p>
+                        <p>An injectable service can mediate communication between any components</p>
+                    </section>
+
+                    <section>
+                        <p>Component as a mediator</p>
+                        <img src="img/component_as_mediator.png" alt="" class="custom-image">
+                    </section>
+
+                    <section>
+                        <p>Service as a mediator</p>
+                        <img src="img/service_as_mediator.png" alt="" class="custom-image">
+                    </section>
+                </section>
+            
+                <!-- Services and dependency injection -->
+
+                <section>
+                    <p>Services and Dependency Injection</p>
+                    <pre>
+                        <code data-trim class="hljs javascript ">
+import { Injectable } from '@angular/core';
+
+@Injectable(provideIn: 'root')
+export class MyService { }
+                        </code>
+                    </pre> 
+
+                    <pre>
+                        <code data-trim class="hljs javascript ">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'ngt-component',
+  template: ``
+})
+export class AppComponent {
+    constructor(private myService: MyService) { }
 }
                         </code>
                     </pre>
                 </section>
 
                 <section>
-                  <p>Services and Dependency Injection</p>
-                  <pre>
-                    <code data-trim class="hljs javascript ">
-import { Injectable } from '@angular/core';
-
-@Injectable()
-export class MyService {
-}
-                        </code>
-                    </pre>                  
+                    <p>The big picture</p>
+                    <img src="https://angular.io/generated/images/guide/architecture/overview2.png" alt="" class="custom-image">
                 </section>
 
                 <section>
