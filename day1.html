@@ -121,12 +121,12 @@ import { Component } from '@angular/core';
   selector: 'ngt-component',
   template: `
     <h2>My favorite car is 
-        <span [innerHTML]="favouriteCar"></span>
+        <span [innerHTML]="favoriteCar"></span>
     </h2>
     `
 })
 export class NgtComponent {
-  protected favouriteCar = 'Mercedes';
+  protected favoriteCar = 'Mercedes';
 }
                             </code>
                         </pre>
@@ -173,12 +173,22 @@ export class NgtComponent {
                             </code>
                         </pre>
                     </section>
+
+                    <section>
+                        <p>Recap</p>
+                        <ul>
+                            <li>Javascript code can be used in the html using interpolation {{ ... }}</li>
+                            <li>We can bind to DOM node properties (and not only) using square brakets [value]</li>
+                            <li>Binding to DOM events (and not only) can be achieved through round brakets (click)</li>
+                            <li>Two way data binding can be achieved by combinding square and round brakets (banana in the box) [(ngModel)]</li>
+                        </ul>
+                    </section>
                 </section>
 
                 <!-- Inter-component communication -->
                 <section>
                     <section>
-                        <p> Content Projection </p> <br />
+                        <p> Inter-component communication </p> <br />
                         <p> - @Input and @Output properties </p>
                         <p> - Using a parent component as a mediator </p>
                         <p> - Using an injectable service as a mediator </p>
@@ -186,7 +196,7 @@ export class NgtComponent {
 
                     <section>
                         <p> @Input and @Output properties </p> <br />
-                        <p> Think of a component as a black box with entry and exitdoors </p>
+                        <p> Think of a component as a black box with entry and exit doors </p>
                         <p> Properties marked as @Input() are used for getting data from the parent component </p>
                         <p> Properties marked as @Output() are used for sending events (and data) from a component </p>
                     </section>
@@ -263,23 +273,262 @@ export class ChildComponent {
                         <p>Service as a mediator</p>
                         <img src="img/service_as_mediator.png" alt="" class="custom-image">
                     </section>
+
+                    <section>
+                        <p>Recap</p>
+                        <ul>
+                            <li>Components receive data from their parents via @Input() properties.</li>
+                            <li>Components send data to their parents by emiting data through their @Output() properties.</li>
+                            <li>The mediator pattern helps us achieve inter-component communication through a loosely-coupled manner.</li>
+                            <li>Using injectable services is the most flexible way of inter-component communication.</li>
+                        </ul>
+                    </section>
                 </section>
-            
-                <!-- Services and dependency injection -->
+
+                <!-- Content projection -->
 
                 <section>
-                    <p>Services and Dependency Injection</p>
-                    <pre>
-                        <code data-trim class="hljs javascript ">
+                    <section>
+                        <p>Content projection</p>
+                        <ul>
+                            <li>It is used for passing HTML elements or Angular components to a child component</li>
+                            <li>In order for the fragments to be rendered to the DOM, an &lt;ng-content&gt; tag will be used as a placeholder in the child where the actual content should be projected</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+@Component({
+    selector: 'ngt-parent',
+    template: `
+        <h2>This is from the parent component</h2>
+        <ngt-child>
+            <div>Parent projects this element into the child</div>
+            <ngt-data-component></ngt-data-component>
+        </ngt-child>
+    `
+})
+export class ParentComponent { }
+                            </code>
+                        </pre>
+
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+@Component({
+    selector: 'ngt-child',
+    template: `
+        <h2>This is from the child component</h2>
+        <ng-content></ng-content>
+    `
+})
+export class ChildComponent { }
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Multiple content projections</p>
+                        <p>The "select" attribute allows the use of multiple targeted <br /> &lt;ng-content&gt; tags </p>
+                        <p>It's an actual css selector, so any selector can be used: class, attribute, id, element</p>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+@Component({
+    selector: 'ngt-parent',
+    template: `
+        <h2>This is from the parent component</h2>
+        <ngt-child>
+            <span content-type="title">Title</span>
+            <span content-type="description">Some description</span>
+            <span content-type="generalInformation">General info</span>
+        </ngt-child>
+    `
+})
+export class ParentComponent { }
+
+
+@Component({
+    selector: 'ngt-child',
+    template: `
+        <h1>
+            <ng-content select="[content-type=title]"></ng-content>
+        </h1>
+        <div>
+            <ng-content select="[content-type=generalInformation]">
+            </ng-content>
+        </div>
+        <div>
+            <ng-content select="[content-type=description]">
+            </ng-content>
+        </div>
+    `
+})
+export class ChildComponent { }
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+                        <ul>
+                            <li>We can project content to a child component by using the &lt;ng-content&gt;</li>
+                            <li>We can have multiple content projection by adding a select attribute to the &lt;ng-content&gt;</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <!-- Directives -->
+
+                <section>
+                    <section>
+                        <p>Directives</p>
+                        <ol>
+                          <li>A class annotated with @Directive()</li>
+                          <li>Can't have it's own UI (HTML markup)</li>
+                          <li>It can be attached to an HTML element (native element or component)</li>
+                          <li>Structural directives—change the DOM layout by adding and removing DOM elements. (NgFor, NgIf, NgSwitch)</li>
+                          <li>Attribute directives—change the appearance or behavior of an element, component, or another directive.(NgClass, NgStyle)</li>
+                        </ol>
+                    </section>
+  
+                    <section>
+                      <p>Description of a attribute directive</p>
+  <pre>
+    <code data-trim class="hljs javascript">
+import { Directive, ElementRef, HostListener, Input  } from '@angular/core';
+
+@Directive({
+  selector: '[appHighlight]'
+})
+export class HighlightDirective {
+    @Input() highlightColor: string;
+
+    constructor(private el: ElementRef) { }
+
+    @HostBinding('class.red') red = true;
+
+    @HostListener('mouseenter') onMouseEnter() {
+        this.highlight('yellow');
+    }
+
+    @HostListener('mouseleave') onMouseLeave() {
+        this.highlight(null);
+    }
+
+    private highlight(color: string) {
+        this.el.nativeElement.style.backgroundColor = color;
+    }
+}</code>
+  </pre>
+                    </section>
+                    <section>
+                        <p>Usage of an attribute directive</p>
+                        <pre>
+                            <code data-trim class="hljs javascript">                    
+<p appHighlight>Highlight me!</p>
+
+<ngt-component appHighlight>Highlight me!</ngt-component>
+                            </code>
+                        </pre>
+                    </section>
+                  </section>
+
+                <!-- Pipes -->
+
+                <section>
+                    <p>Pipes</p>
+  <pre>
+    <code data-trim class="hljs javascript">
+import { Pipe, PipeTransform } from '@angular/core';
+/*
+  * Raise the value exponentially
+  * Takes an exponent argument that defaults to 1.
+  * Usage:
+  *   value | exponentialStrength:exponent
+  * Example:
+  *   {{ 2 | exponentialStrength:10 }}
+  *   formats to: 1024
+*/
+@Pipe({name: 'exponentialStrength'})
+export class ExponentialStrengthPipe implements PipeTransform {
+  transform(value: number, exponent: string): number {
+    let exp = parseFloat(exponent);
+    return Math.pow(value, isNaN(exp) ? 1 : exp);
+  }
+}                      
+  </code>
+</pre>
+                  </section>
+            
+                <!-- Services and dependency injection -->
+                
+                <section>
+                    <section>
+                        <p>Services and Dependency Injection</p>
+                        <ul>
+                            <li>Don’t instantiate classes with the new operator</li>
+                            <li>Angular creates and injects services into components, directives or other services</li>
+                            <li>Angular can create and inject values into variables</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <ul>
+                            <li>We can inject services into components, directives or services using the constructor</li>
+                            <li>In order to inject a service / value, angular needs to have that defined in the providers section in a module/component</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+@NgModule({
+    providers: [{ 
+        provide: ListApiService,
+        useClass: ListApiService
+    }]
+})
+class AppModule { }
+
+// short hand
+@NgModule({
+    providers: [ListApiService]
+})
+class AppModule { }
+                            </code>
+                        </pre>
+
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+@NgModule({
+    providers: [{ 
+        provide: ListApiService,
+        useClass: MockedApiService
+    }]
+})
+class AppModule { }
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
 import { Injectable } from '@angular/core';
 
-@Injectable(provideIn: 'root')
-export class MyService { }
-                        </code>
-                    </pre> 
-
-                    <pre>
-                        <code data-trim class="hljs javascript ">
+// @Injectable(provideIn: 'root')
+@Injectable()
+export class ListApiService { 
+    ...
+}
+                            </code>
+                        </pre> 
+    
+                        <pre>
+                            <code data-trim class="hljs javascript ">
 import { Component } from '@angular/core';
 
 @Component({
@@ -287,11 +536,51 @@ import { Component } from '@angular/core';
   template: ``
 })
 export class AppComponent {
-    constructor(private myService: MyService) { }
+    constructor(private listApiService: ListApiService) { }
 }
-                        </code>
-                    </pre>
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>@Inject() decorator</p>
+                        <p>Allows us to specify the token type</p>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+import { Component, Inject } from '@angular/core';
+
+@Component({
+  selector: 'ngt-component',
+  template: ``
+})
+export class AppComponent {
+    constructor(@Inject(ListApiService) private listApiService) { }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+import { Component, Inject, InjectionToken } from '@angular/core';
+
+export const BACKEND_URI = new InjectionToken('BackendUri');   
+
+@Component({
+  selector: 'ngt-component',
+  template: ``,
+  providers: [{ provide: BACKEND_URI, useValue: 'qa-server.com' }]
+})
+export class AppComponent {
+    constructor(@Inject(BACKEND_URI) private uri) { }
+}
+                            </code>
+                        </pre>
+                    </section>
                 </section>
+
+                <!-- The big picture -->
 
                 <section>
                     <p>The big picture</p>
@@ -543,85 +832,6 @@ export class CarDetailsComponent {
 }
                         </code>
                     </pre>
-                </section>
-
-                <section>
-                  <section>
-                      <p>Directives</p>
-                      <ol>
-                        <li>Components—directives with a template.</li>
-                        <li>Structural directives—change the DOM layout by adding and removing DOM elements. (NgFor, NgIf)</li>
-                        <li>Attribute directives—change the appearance or behavior of an element, component, or another directive.(NgClass, NgStyle)</li>
-                      </ol>
-                  </section>
-
-                  <section>
-                    <p>Description of a attribute directive</p>
-<pre>
-    <code data-trim class="hljs javascript">
-import { Directive, ElementRef, HostListener, Input  } from '@angular/core';
-// ElementRef - reference to the host DOM element
-
-
-@Directive({
-  selector: '[appHighlight]'
-})
-export class HighlightDirective {
-  @Input() highlightColor: string;
-
-  constructor() { 
-    constructor(el: ElementRef) {
-      //el.nativeElement.style.backgroundColor = 'yellow';
-   }
-
-   @HostListener('mouseenter') onMouseEnter() {
-      this.highlight('yellow');
-    }
-
-    @HostListener('mouseleave') onMouseLeave() {
-      this.highlight(null);
-    }
-
-    private highlight(color: string) {
-      this.el.nativeElement.style.backgroundColor = color;
-    }
-  }
-}</code>
-</pre>
-                  </section>
-                  <section>
-                    <p>Usage of an attribute directive</p>
-<pre>
-    <code data-trim class="hljs javascript">                    
-<p appHighlight>Highlight me!</p>
-</code>
-</pre>
-                  </section>
-                </section>
-
-                <section>
-                  <p>Pipes</p>
-<pre>
-  <code data-trim class="hljs javascript">
-import { Pipe, PipeTransform } from '@angular/core';
-/*
-  * Raise the value exponentially
-  * Takes an exponent argument that defaults to 1.
-  * Usage:
-  *   value | exponentialStrength:exponent
-  * Example:
-  *   {{ 2 | exponentialStrength:10 }}
-  *   formats to: 1024
-*/
-@Pipe({name: 'exponentialStrength'})
-export class ExponentialStrengthPipe implements PipeTransform {
-  transform(value: number, exponent: string): number {
-    let exp = parseFloat(exponent);
-    return Math.pow(value, isNaN(exp) ? 1 : exp);
-  }
-}                      
-  </code>
-</pre>
                 </section>
 
                 <section>
