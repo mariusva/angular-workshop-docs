@@ -389,13 +389,81 @@ export class ChildComponent { }
                           <li>A class annotated with @Directive()</li>
                           <li>Can't have it's own UI (HTML markup)</li>
                           <li>It can be attached to an HTML element (native element or component)</li>
-                          <li>Structural directives—change the DOM layout by adding and removing DOM elements. (NgFor, NgIf, NgSwitch)</li>
-                          <li>Attribute directives—change the appearance or behavior of an element, component, or another directive.(NgClass, NgStyle)</li>
+                          <li>Structural directives—change the DOM layout by adding and removing DOM elements. (*ngFor, *ngIf, *ngSwitch)</li>
+                          <li>Attribute directives—change the appearance or behavior of an element, component, or another directive.(ngClass, ngStyle)</li>
                         </ol>
+                    </section>
+
+                    <section>
+                        <p>*ngIf</p>
+                        <pre>
+                            <code data-trim class="hljs javascript">
+@Component({
+    selector: 'ngt-example',
+    template: `
+        <div *ngIf="showDetails">
+            <h2>Details section</h2>
+        </div>
+        <button (click)="showDetails = !showDetails">
+            Toggle details
+        </button>
+    `
+})
+export class ExampleComponent { 
+    protected showDetails = false;
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>*ngFor</p>
+                        <pre>
+                            <code data-trim class="hljs javascript">
+@Component({
+    selector: 'ngt-example',
+    template: `
+        <ul>
+            <li *ngFor="let product of products">
+                {{ product.name }}
+            </li>
+        </ul>
+    `
+})
+export class ExampleComponent { 
+    protected products = [ 
+        { name: 'product1' }, 
+        { name: 'product2' }, 
+        { name: 'product3' } 
+    ];
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>*ngSwitch</p>
+                        <pre>
+                            <code data-trim class="hljs javascript">
+@Component({
+    selector: 'ngt-example',
+    template: `
+        <div [ngSwitch]="country">
+            <div *ngSwitchCase="'DE'"> ... </div>
+            <div *ngSwitchCase="'SE'"> ... </div>
+            <div *ngSwitchCase="'FI'"> ... </div>
+        </div>
+    `
+})
+export class ExampleComponent { 
+    @Input() country = null;
+}
+                            </code>
+                        </pre>
                     </section>
   
                     <section>
-                      <p>Description of a attribute directive</p>
+                      <p>Description of an attribute directive</p>
   <pre>
     <code data-trim class="hljs javascript">
 import { Directive, ElementRef, HostListener, Input  } from '@angular/core';
@@ -439,29 +507,56 @@ export class HighlightDirective {
                 <!-- Pipes -->
 
                 <section>
-                    <p>Pipes</p>
-  <pre>
-    <code data-trim class="hljs javascript">
+                    <section>
+                        <p>Pipes</p>
+                        <p>They are functions that help us process data in the template (HTML)</p>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript">
 import { Pipe, PipeTransform } from '@angular/core';
+
 /*
-  * Raise the value exponentially
-  * Takes an exponent argument that defaults to 1.
+  * Returns '-'' if the data is null or undefined
   * Usage:
-  *   value | exponentialStrength:exponent
+  *   value | emptyValue
   * Example:
-  *   {{ 2 | exponentialStrength:10 }}
-  *   formats to: 1024
+  *   {{ undefined | emptyValue }}
+  *   formats value to: '-'
 */
-@Pipe({name: 'exponentialStrength'})
-export class ExponentialStrengthPipe implements PipeTransform {
-  transform(value: number, exponent: string): number {
-    let exp = parseFloat(exponent);
-    return Math.pow(value, isNaN(exp) ? 1 : exp);
+@Pipe({name: 'emptyValue'})
+export class EmptyValueFormatterPipe implements PipeTransform {
+  transform(value: any): string {
+    if (value != null && !value.isUndefined && value !== 'null') {
+      return value;
+    } else {
+      return '-';
+    }
   }
-}                      
-  </code>
-</pre>
-                  </section>
+}                    
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript">
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Component({
+    selector: 'ngt-example',
+    template: `
+        <h2> {{ username | emptyValue }} </h2>
+    `  
+})  
+export class ExampleComponent {
+    protected username = null;
+}                
+                            </code>
+                        </pre>
+                    </section>
+                </section>
             
                 <!-- Services and dependency injection -->
                 
