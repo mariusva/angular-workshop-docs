@@ -35,6 +35,74 @@
                     <p><img src="https://angular.io/assets/images/logos/angular/angular.svg" style="width: 250px;" class="custom-image" alt="Angular"></p>
                     <p class="fragment">A platform and framework for building client applications in HTML and TypeScript.</p>
                 </section>  
+
+                <section>
+                    <!-- NPM -->
+                    <section>
+                        <p>Node Package Manager (npm)</p>
+                        <p>You can find all the packages on npmjs.org</p>
+                    </section>
+
+                    <section>
+                        <p>In order to install a package you have to wirte: </p>
+                        <p>npm install package_name </p> <br />
+                        <p>The module will be installed in a directory called node_module inside the directory where you ran the command from.</p> <br />
+                        <p>In order to install it globally you can specify -g flag</p>
+                    </section>
+
+                    <section>
+                        <p>All the project dependencies are listed in a package.json file</p>
+                        <p>The npm install command will add the package as an entry to the package.json file (if it exists)</p>
+                        <p>To create the package.json write:</p>
+                        <p>npm init</p>
+                    </section>
+
+                    <section>
+                        <img src="./img/npm_versioning.png">
+                    </section>
+
+                    <section>
+                        <p>All the packages are installed by default under the dependencies listing</p> <br />
+                        <p>To install it under the devDependencies you need to specify the -D flag</p>
+                    </section>
+
+                    <section>
+                        <p>npm scripts</p>
+                        <p>pre/post scripts</p>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+"scripts": {
+    "preinstall": "scripts/preinstall.js"
+    "install" : "scripts/install.js", 
+    "postinstall" : "scripts/postinstall.js",
+    "start:server": "app/server.js"
+}
+                            </code>
+                        </pre>
+                        <p>Running the npm install command will first run the preinstall, followed by the install and finally the postinstall</p>
+                        <p>In order to run the start:server script we need to use: npm run start:server (run tells npm to execute the file)</p>
+                    </section>
+
+                    <section>
+                        <p>package-lock.json</p>
+                        <p>Pakcage lock is a file that ensures that every environment where the npm install is run will have the same version of dependencies as the user who installed them.</p>
+                        <p>Push the package-lock.json to the repository as well.</p>
+                    </section>
+
+                    <section>
+                        <p>Don't forget to place the node_modules in the .gitignore file, we shouldn't push that to the repository!</p>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+                        <ul>
+                            <li>npm is a dependency managment tool</li>
+                            <li>We can install packages using the npm install command</li>
+                            <li>We can run scripts that are not overriding default npm commands using the: npm run script_name</li>
+                            <li>Don't forget to ignore the node_modules so that it's not pushed to the repository</li>
+                        </ul>
+                    </section>
+                </section>
                     
                 <section>
                   <p>NgModules </p>
