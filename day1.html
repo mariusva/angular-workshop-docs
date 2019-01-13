@@ -670,14 +670,14 @@ export class AppModule { }
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'ngt-component',
-    template: `
+    selector: 'ngt-component', // wrapps the whole content
+    template: ` // backtick
         <h1>Hello {{ name }}</h1>
     `,
+    styleUrls: ['ngt-component.css']
     providers: [...]
 })
 export class NgtComponent { 
-    // Use protected so that the property is accessible from html
     protected name = 'Angular';
 }
     </code>
@@ -743,7 +743,7 @@ import { Component } from '@angular/core';
   selector: 'ngt-component',
   template: `
     <button (click)="notify()">My button</button>
-    `
+  `
 })
 export class NgtComponent {
   
@@ -818,7 +818,7 @@ export class ParentComponent {
 @Component({
     selector: 'ngt-child',
     template: `
-        {{ renderInformation.a + renderInformation.b }}
+        {{ renderInformation.a + ' ' + renderInformation.b }}
     `
 })
 export class ChildComponent {
@@ -861,7 +861,7 @@ export class ChildComponent {
                     <section>
                         <p>The Mediator acts as a man in the middle</p>
                         <p>A component A sends the data to a mediator, which passes the data to a component B</p>
-                        <p>Component A and Component B don’t know about each other A parent component can mediate siblings’ communications</p>
+                        <p>Component A and Component B don’t know about each other, the parent component can mediate siblings’ communications</p>
                         <p>An injectable service can mediate communication between any components</p>
                     </section>
 
@@ -1025,8 +1025,8 @@ export class ExampleComponent {
     selector: 'ngt-example',
     template: `
         <ul>
-            <li *ngFor="let product of products">
-                {{ product.name }}
+            <li *ngFor="let product of products; let i = index;">
+                {{ product.name }}, index: {{ i }}
             </li>
         </ul>
     `
@@ -1073,14 +1073,14 @@ import { Directive, ElementRef, HostListener, Input  } from '@angular/core';
   selector: '[appHighlight]'
 })
 export class HighlightDirective {
-    @Input() highlightColor: string;
+    @Input() highlightColor: string = 'white';
 
     constructor(private el: ElementRef) { }
 
     @HostBinding('class.red') red = true;
 
     @HostListener('mouseenter') onMouseEnter() {
-        this.highlight('yellow');
+        this.highlight(highlightColor);
     }
 
     @HostListener('mouseleave') onMouseLeave() {
@@ -1097,11 +1097,27 @@ export class HighlightDirective {
                         <p>Usage of an attribute directive</p>
                         <pre>
                             <code data-trim class="hljs javascript">                    
-<p appHighlight>Highlight me!</p>
+<p appHighlight [highlightColor]="blue">Highlight me!</p>
 
-<ngt-component appHighlight>Highlight me!</ngt-component>
+<ngt-component appHighlight [highlightColor]="blue">
+    Highlight me!
+</ngt-component>
                             </code>
                         </pre>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+
+                        <ul>
+                            <li>Directives can be attached to and HTML tag or a component to enchance the functionality/appearance</li> <br />
+                            <li>We have two kind of directives: 
+                                <ul>
+                                    <li>structural directives (*ngIf, *ngFor, *ngSwitch)</li>
+                                    <li>attribute directives (ngClass, ngStyle)</li>
+                                </ul> 
+                            </li>
+                        </ul>
                     </section>
                   </section>
 
@@ -1126,7 +1142,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   *   {{ undefined | emptyValue }}
   *   formats value to: '-'
 */
-@Pipe({name: 'emptyValue'})
+@Pipe({ name: 'emptyValue' })
 export class EmptyValueFormatterPipe implements PipeTransform {
   transform(value: any): string {
     if (value != null && !value.isUndefined && value !== 'null') {
@@ -1143,7 +1159,7 @@ export class EmptyValueFormatterPipe implements PipeTransform {
                     <section>
                         <pre>
                             <code data-trim class="hljs javascript">
-import { Pipe, PipeTransform } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'ngt-example',
@@ -1288,8 +1304,41 @@ export class AppComponent {
                     <p>- service that lets you define a navigation path among the different application states and view hierarchies in your app</p>
                     <p>- lazy-loading</p>
                     <p>- guards, resolvers</p>
-                  </section>     
-                  
+                </section>     
+                
+                <section>
+                    <section>
+                        <p>The Elvis operator ?</p>
+                        <ul>
+                            <li>It can be used in the HTMl when trying to access properties on a given object</li>
+                            <li>It simply performs sanity checks</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'ngt-component',
+  template: `
+    <span>{{ user.address }}</span> // will display null
+    <span>{{ user?.address }}</span> // will display null
+    <span>{{ user.address.streetName }}</span> // will break horribly
+    <span>{{ user?.address?.postalCode }}</span> // will display undefined
+  `
+})
+export class AppComponent {
+    protected user = {
+        name: 'Test',
+        address: null
+    }
+}
+                            </code>
+                        </pre>
+                    </section>
+                </section>
 
                 <section>
                     <p>Display an array property with *ngFor</p>
@@ -1490,28 +1539,6 @@ export class CarAppComponent {
                 </section>
 
                 <section>
-                    <p>Template Inline Styles</p>
-                    <pre class="fragment">
-                    <code data-trim class="hljs javascript">
-@Component({
-  selector: 'product-controls',
-  template: `
-    <style>
-        button {
-            background-color: white;
-            border: 1px solid black;
-        }
-    </style>
-    <h3>Products</h3>
-    <button (click)="selectFavorite()">Select favorite</button>
-  `
-})
-
-                        </code>
-                    </pre>
-                </section>
-
-                <section>
                     <p>Style URLs in Metadata</p>
                     <pre class="fragment">
                     <code data-trim class="hljs javascript">
@@ -1532,7 +1559,7 @@ export class CarDetailsComponent {
 
                 <section>
                     <h3>Lifecycle Hooks</h3>
-                    <a href="https://angular.io/guide/lifecycle-hooks#lifecycle-sequence">https://angular.io/guide/lifecycle-hooks#lifecycle-sequence</a>
+                    <a href="https://angular.io/guide/lifecycle-hooks#lifecycle-sequence" target="_blank">https://angular.io/guide/lifecycle-hooks#lifecycle-sequence</a>
                 </section>
 
                 <section>
