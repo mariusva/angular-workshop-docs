@@ -1326,7 +1326,7 @@ import { Component } from '@angular/core';
     <span>{{ user.address }}</span> // will display null
     <span>{{ user?.address }}</span> // will display null
     <span>{{ user.address.streetName }}</span> // will break horribly
-    <span>{{ user?.address?.postalCode }}</span> // will display undefined
+    <span>{{ user?.address?<div class="postalCode"></div> }}</span> // will display undefined
   `
 })
 export class AppComponent {
