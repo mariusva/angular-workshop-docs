@@ -1541,7 +1541,7 @@ export class CarAppComponent {
                 <section>
                     <p>Style URLs in Metadata</p>
                     <pre class="fragment">
-                    <code data-trim class="hljs javascript">
+                        <code data-trim class="hljs javascript">
 @Component({
   selector: 'car-details',
   template: `
@@ -1620,6 +1620,41 @@ export class CarComponent implements OnChanges {
                     <p>CD strategies: Default vs OnPush</p>
                     <img style="height: 300px;" src="./img/CD_2.png" />
                     <p style="font-size: 0.7em;">A change in GrandChild1 will cause change detection in all components shown with blue background. </p>
+                </section>
+
+                <section>
+                    <p>We would still like to trigger CD in the OnPush component</p>
+
+                    <pre class="fragment">
+                        <code data-trim class="hljs javascript">
+@Component({
+  selector: 'ngt-component',
+  template: `
+    <h2>{{car.id}}</h2>
+    <h2>{{car.name}}</h2>
+  `,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class CarDetailsComponent {
+    protected car: { id, name };
+
+    constructior(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef
+    ) { 
+        this.loadData(7);
+    }
+
+    private loadData(id: number) {
+        this.productService.getCarById(id)
+            .subscribe(car => {
+                this.car = car; // CD won't run
+                this.cd.detectChanges(); // runs for component and all children
+            });
+    }
+}
+                        </code>
+                    </pre>
                 </section>
 </div>
         </div>
