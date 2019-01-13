@@ -166,6 +166,476 @@
                         </ul>
                     </section>
                 </section>
+
+                <!-- Typescript -->
+
+                <section>
+                    <section>
+                        <p>Intro into TypeScript</p>
+                        <ul>
+                            <li>A superset of JavaScript created by Microsoft</li>
+                            <li>Supports types, classes, interfaces, generics, annotations</li>
+                            <li>Easy to learn by Java, C#, and C++ developers</li>
+                            <li>Transpiles code into a human-readable JavaScript</li>
+                            <li>Supports most of the ES6 and some ES7 syntax</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <p>Installing the TypeScript transpiler</p>
+                        <p style="color: green">npm i -g typescript</p><br />
+
+                        <p>To transpile a typescript file (.ts) to a .js file:</p>
+                        <p><span style="color: green">tsc —t ES5 file_name </span> (-t specifies the target to be ES5 the standard supported by all browsers)</p>
+                    </section>
+
+                    <section>
+                        <p>TypeScript configuration file (tsconfig.json)</p>
+                        <p>Saves us from writing tons of flags</p>
+                        <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html">List of all the options</a>
+                        <pre>
+                            <code class="hljs javascript">
+{
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "./dist/out-tsc",
+        "target": "ES5",
+        "module": "commonjs",
+        "experimentalDecorators": true, // used by Angular
+        "sourceMap": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>If the tsconfig.json is not in the current directory specify the</p>
+                        <p><span style="color: green;">--project</span> flag with the relative path to the tsconfig</p>
+                    </section>
+                    
+                    <section>
+                        <h2>Transpiling TypeScript Interactively</h2>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code class="hljs javascript">
+let foo: string;
+class Bar {
+
+}
+                                    </code>
+                                </pre>
+                            </div>
+                            <div class="right-column fragment">
+                            <p>JavaScript (ES5)</p>
+                                <pre>
+                                    <code class="hljs javascript">
+var foo;
+var Bar = (function () {
+    function Bar() {
+    }
+    return Bar;
+}());
+                                </code>
+                            </pre> 
+                        </div>                        
+                    </section>
+
+                    <section>
+                        <h3>Classes</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code class="hljs javascript">
+class Person {
+    public firstName: string;
+    public lastName: string;
+    public age: number;
+}
+
+let p = new Person();
+
+p.firstName = "John";
+p.lastName = "Smith";
+p.age = 29;
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript (ES5)</p>
+                            <pre>
+                                <code class="hljs javascript">
+var Person = (function () {
+    function Person() {
+    }
+    return Person;
+}());
+
+var p = new Person();
+
+p.firstName = "John";
+p.lastName = "Smith";
+p.age = 29;
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Optional types</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code class="hljs javascript">
+// Explicit types
+let productName = 'BMW';
+productName = 'Mercedes';
+// compile error in TS
+productName = 123; 
+
+//Implicit types
+let productVendor: string = 'Samsung';
+productVendor = 'Sony';
+// compile error in TS
+productVendor = 123; 
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript (ES5)</p>
+                            <pre>
+                                <code class="hljs javascript">
+// Explicit types
+var productName = 'BMW';
+productName = 'Mercedes';
+// no compiler error in JS
+productName = 123; 
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>A Class With Constructor. Take 1</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code data-trim data-noescape class="hljs javascript small-font-code" >
+class Person {
+    public firstName: string;
+    public lastName: string;
+    public age: number;
+    private _ssn: string;
+
+    constructor(firstName: string, lastName: string, age: number, ssn: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this._ssn = ssn;
+    }
+}
+var p = new Person("John", "Smith", 29, "123-90-4567");
+console.log("Last name: " + p.lastName + " SSN: " + p.<mark>_ssn</mark>);
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript (ES5)</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var Person = (function () {
+    function Person(firstName, lastName, age, ssn) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this._ssn = ssn;
+    }
+    return Person;
+}());
+var p = new Person("John", "Smith", 29, "123-90-4567");
+console.log("Last name: " + p.lastName + " SSN: " + p._ssn);
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>A Class With Constructor. Take 2</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code data-trim data-noescape class="hljs javascript small-font-code">
+class Person {
+	constructor(
+        public firstName: string, 
+        public lastName: string, 
+        public age: number, 
+        private _ssn: string
+    ) { }
+}
+
+var p = new Person("John", "Smith", 29, "123-90-4567");
+console.log("Last name: " + p.lastName + " SSN: " + p.<mark>_ssn</mark>);
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript (ES5)</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var Person = (function () {
+    function Person(firstName, lastName, age, _ssn) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this._ssn = _ssn;
+    }
+    return Person;
+}());
+var p = new Person("John", "Smith", 29, "123-90-4567");
+console.log("Last name: " + p.lastName + " SSN: " + p._ssn);
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Inheritance</h3>
+                        <div class="left-column fragment">
+                            <p>Classical syntax</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+class Person {
+    constructor(
+        public firstName: string, 
+        public lastName: string, 
+        public age: number, 
+        private _ssn: string
+    ) { }
+}
+
+class Employee extends Person { }
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>Prototypal</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Person = (function () {
+    function Person(firstName, lastName, age, _ssn) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this._ssn = _ssn;
+    }
+    return Person;
+}());
+var Employee = (function (_super) {
+    __extends(Employee, _super);
+    function Employee() {
+        return _super.apply(this, arguments) || this;
+    }
+    return Employee;
+}(Person));
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Generics</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code data-trim  data-noescape class="hljs javascript small-font-code">
+class Person {
+    name: string;
+}
+
+class Employee extends Person {
+    department: number;
+}
+
+
+class Animal {
+    breed: string;
+}
+
+let workers: Array&lt;Person&gt; = [];
+workers[0] = new Person();
+workers[1] = new Employee();
+<mark>workers[2] = new Animal(); //A compile time error</mark>
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Person = (function () {
+    function Person() {
+    }
+    return Person;
+}());
+var Employee = (function (_super) {
+    __extends(Employee, _super);
+    function Employee() {
+        return _super.apply(this, arguments) || this;
+    }
+    return Employee;
+}(Person));
+var Animal = (function () {
+    function Animal() {
+    }
+    return Animal;
+}());
+var workers = [];
+workers[0] = new Person();
+workers[1] = new Employee();
+workers[2] = new Animal(); //No errors
+
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Interfaces as Custom Types</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+interface IPerson {
+    firstName: string;
+    lastName: string;
+    age: number;
+}
+
+class Person {
+    constructor(public config: IPerson) { }
+}
+
+const aPerson: IPerson = {
+    firstName: "John",
+    lastName: "Smith",
+    age: 29
+}
+
+const p = new Person(aPerson);
+console.log("Last name: " + p.config.lastName);
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var Person = (function () {
+    function Person(config) {
+        this.config = config;
+    }
+    return Person;
+}());
+var aPerson = {
+    firstName: "John",
+    lastName: "Smith",
+    age: 29
+};
+var p = new Person(aPerson);
+console.log("Last name: " + p.config.lastName);
+//No interfaces here
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Interfaces and implements</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+interface IPayable {
+    increasePay(percent: number): void
+}
+class Employee implements IPayable {
+    increasePay(percent: number) {
+        //increase salary
+    }
+}
+class Contractor implements IPayable {
+    increasePay(percent: number): void {
+        //increase hourly rate
+    }
+}
+
+let workers: Array&lt;IPayable&gt; = [];
+workers[0] = new Employee();
+workers[1] = new Contractor();
+workers.forEach(worker => worker.increasePay(30));
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var Employee = (function () {
+    function Employee() {
+    }
+    Employee.prototype.increasePay = function (percent) {
+        //increase salary
+    };
+    return Employee;
+}());
+var Contractor = (function () {
+    function Contractor() {
+    }
+    Contractor.prototype.increasePay = function (percent) {
+        //increase hourly rate
+    };
+    return Contractor;
+}());
+var workers = [];
+workers[0] = new Employee();
+workers[1] = new Contractor();
+workers.forEach(function (worker) { return worker.increasePay(30); });
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+    
+                        <ul>
+                            <li>Typescript is a superset of JavaScript</li>
+                            <li>Supports types, classes, interfaces, generics, decorators</li>
+                            <li>Transpiles TypeScript code to human readable JavaScript</li>
+                            <li>We can transpile .ts files using the tsc command</li>
+                            <li>We should create a tsconfig.json file to store all our compiler options</li>
+                        </ul>
+                    </section>
+                </section>
                     
                 <section>
                   <p>NgModules </p>
