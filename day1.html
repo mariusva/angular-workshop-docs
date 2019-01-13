@@ -1669,6 +1669,51 @@ export class CarDetailsComponent {
                         </ul>
                     </section>
                 </section>
+
+                <section>
+                    <section>
+                        <p>Testing</p>
+                    </section>
+
+                    <section>
+                        <p>Unit tests</p><br />
+                        <p>In order to write the actual tests we use Jasmin together with Angular Testing Module (@angular/core/testing)</p>
+                        <p>In order to run the tests we use the test runner Karma</p>
+                    </section>
+
+                    <section>
+                        <p>Jasmine terminology</p>
+                        <p>A test is written in the function it()</p>
+                        <p>A test suite is written in describe()</p>
+
+                        <pre>
+                            <code data-trim class="hljs javascript">
+import AppComponent from ‘./app.component';
+
+describe('AppComponent', () => {
+    it('is successfully instantiated', () => {
+        const app = new AppComponent();
+        expect(app instanceof AppComponent).toEqual(true);
+    });
+});
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Jasmine matchers</p>
+                        <img src="./img//jasmine_matchers.png" />
+                    </section>
+
+                    <section>
+                        <p>Setup and teardown</p>
+
+                        <p> Setup. Include the functions beforeAll() and beforeEach()
+                            in your spec file with the code to execute before all or each spec.</p>
+                        <p>Teardown. Include the functions afterAll() and afterEach() 
+                            with the code to execute after all or each spec.</p>
+                    </section>
+                </section>
 </div>
         </div>
 
