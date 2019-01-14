@@ -67,6 +67,11 @@
                     </section>
 
                     <section>
+                        <p>In order to install only the dependencies listed under the dependencies section (without devDependencies)</p> <br />
+                        <p style="color: green;"> npm i --production </p>
+                    </section>
+
+                    <section>
                         <p>npm scripts</p>
                         <p>pre/post scripts</p>
                         <pre>
@@ -1323,10 +1328,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'ngt-component',
   template: `
-    <span>{{ user.address }}</span> // will display null
-    <span>{{ user?.address }}</span> // will display null
+    <span>{{ user.address }}</span> // will display nothing
+    <span>{{ user?.address }}</span> // will display nothing
     <span>{{ user.address.streetName }}</span> // will break horribly
-    <span>{{ user?.address?<div class="postalCode"></div> }}</span> // will display undefined
+    <span>{{ user?.address?<div class="postalCode"></div> }}</span> // will display nothing
   `
 })
 export class AppComponent {
