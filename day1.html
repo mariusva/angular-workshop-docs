@@ -46,7 +46,7 @@
                     <section>
                         <p>In order to install a package you have to wirte: </p>
                         <p>npm install package_name </p> <br />
-                        <p>The module will be installed in a directory called node_module inside the directory where you ran the command from.</p> <br />
+                        <p>The module will be installed in a directory called node_modules inside the directory where you ran the command from.</p> <br />
                         <p>In order to install it globally you can specify -g flag</p>
                     </section>
 
@@ -184,20 +184,6 @@
                             <li>Transpiles code into a human-readable JavaScript</li>
                             <li>Supports most of the ES6 and some ES7 syntax</li>
                         </ul>
-                    </section>
-
-                    <section>
-                        <p>Clone traning application</p>
-                        <pre>
-                            <code data-trim class="hljs javascript">
-git clone https://github.com/mariusva/angular-workshop
-git fetch
-cd angular-workshop
-git checkout step1
-npm install
-ng serve -o
-                            </code>
-                        </pre>
                     </section>
 
                     <section>
@@ -393,7 +379,7 @@ console.log("Last name: " + p.lastName + " SSN: " + p._ssn);
                             <pre>
                                 <code data-trim data-noescape class="hljs javascript small-font-code">
 class Person {
-	constructor(
+    constructor(
         public firstName: string, 
         public lastName: string, 
         public age: number, 
@@ -546,7 +532,7 @@ workers[2] = new Animal(); //No errors
 interface IPerson {
     firstName: string;
     lastName: string;
-    age: number;
+    age?: number;
 }
 
 class Person {
@@ -654,6 +640,20 @@ workers.forEach(function (worker) { return worker.increasePay(30); });
                             <li>We should create a tsconfig.json file to store all our compiler options</li>
                         </ul>
                     </section>
+                </section>
+
+                <section>
+                    <p>Clone traning application</p>
+                    <pre>
+                        <code data-trim class="hljs javascript">
+git clone https://github.com/mariusva/angular-workshop
+cd angular-workshop
+git fetch
+git checkout step1
+npm install
+ng serve -o
+                        </code>
+                    </pre>
                 </section>
                     
                 <section>
