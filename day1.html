@@ -187,6 +187,20 @@
                     </section>
 
                     <section>
+                        <p>Clone traning application</p>
+                        <pre>
+                            <code data-trim class="hljs javascript">
+git clone https://github.com/mariusva/angular-workshop
+git fetch
+cd angular-workshop
+git checkout step1
+npm install
+ng serve -o
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
                         <p>Installing the TypeScript transpiler</p>
                         <p style="color: green">npm i -g typescript</p><br />
 
@@ -1717,6 +1731,11 @@ describe('AppComponent', () => {
                             in your spec file with the code to execute before all or each spec.</p>
                         <p>Teardown. Include the functions afterAll() and afterEach() 
                             with the code to execute after all or each spec.</p>
+                    </section>
+
+                    <section>
+                        <p>Adding coverage to the test</p> <br />
+                        <p>ng test --code-coverage</p>
                     </section>
                 </section>
 </div>
