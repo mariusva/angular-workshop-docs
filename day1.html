@@ -741,7 +741,7 @@ import { Component } from '@angular/core';
   selector: 'ngt-component',
   template: `
     <h2>My favorite car is 
-        <span [innerHTML]="favoriteCar"></span>
+        &lt;span [innerHTML]="favoriteCar"&gt;&lt;/span&gt;
     </h2>
     `
 })
@@ -783,7 +783,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'ngt-component',
     template: `
-        <input [(ngModel)]="username" />
+        &lt;input [(ngModel)]="username" /&gt;
     `
 })
 export class NgtComponent {
@@ -827,7 +827,7 @@ export class NgtComponent {
 @Component({
     selector: 'ngt-parent',
     template: `
-        <ngt-child [renderInformation]="data"></ngt-child>
+        &lt;ngt-child [renderInformation]="data"&gt;&lt;/ngt-child&gt;
     `
 })
 export class ParentComponent {
@@ -1134,9 +1134,9 @@ export class CarDetailsComponent {
 @Component({
     selector: 'ngt-example',
     template: `
-        <div *ngIf="showDetails">
+        &lt;div *ngIf="showDetails"&gt;
             <h2>Details section</h2>
-        </div>
+        &lt;/div&gt;
         <button (click)="showDetails = !showDetails">
             Toggle details
         </button>
@@ -1157,9 +1157,9 @@ export class ExampleComponent {
     selector: 'ngt-example',
     template: `
         <ul>
-            <li *ngFor="let product of products; let i = index;">
+            &lt;li *ngFor="let product of products; let i = index;"&gt;
                 {{ product.name }}, index: {{ i }}
-            </li>
+            &lt;/li&gt;
         </ul>
     `
 })
@@ -1181,11 +1181,11 @@ export class ExampleComponent {
 @Component({
     selector: 'ngt-example',
     template: `
-        <div [ngSwitch]="country">
-            <div *ngSwitchCase="'DE'"> ... </div>
-            <div *ngSwitchCase="'SE'"> ... </div>
-            <div *ngSwitchCase="'FI'"> ... </div>
-        </div>
+        &lt;div [ngSwitch]="country"&gt;
+            &lt;div *ngSwitchCase="'DE'"&gt; ... &lt;/div&gt;
+            &lt;div *ngSwitchCase="'SE'"&gt; ... &lt;/div&gt;
+            &lt;div *ngSwitchCase="'FI'"&gt; ... &lt;/div&gt;
+        &lt;/div&gt;
     `
 })
 export class ExampleComponent { 
@@ -1229,11 +1229,11 @@ export class HighlightDirective {
                         <p>Usage of an attribute directive</p>
                         <pre>
                             <code data-trim class="hljs javascript">                    
-<p appHighlight [highlightColor]="blue">Highlight me!</p>
+&lt;p appHighlight [highlightColor]="blue"&gt;Highlight me!&lt;/p&gt;
 
-<ngt-component appHighlight [highlightColor]="blue">
+&lt;ngt-component appHighlight [highlightColor]="blue"&gt;
     Highlight me!
-</ngt-component>
+&lt;/ngt-component&gt;
                             </code>
                         </pre>
                     </section>
