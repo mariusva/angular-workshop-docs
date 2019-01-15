@@ -185,46 +185,6 @@
                             <li>Supports most of the ES6 and some ES7 syntax</li>
                         </ul>
                     </section>
-
-                    <section>
-                        <p>Installing the TypeScript transpiler</p>
-                        <p style="color: green">npm i -g typescript</p><br />
-
-                        <p>To transpile a typescript file (.ts) to a .js file:</p>
-                        <p><span style="color: green">tsc —t ES5 file_name </span> (-t specifies the target to be ES5 the standard supported by all browsers)</p>
-                    </section>
-
-                    <section>
-                        <p>TypeScript configuration file (tsconfig.json)</p>
-                        <p>Saves us from writing tons of flags</p>
-                        <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html">List of all the options</a>
-                        <pre>
-                            <code class="hljs javascript">
-{
-    "compilerOptions": {
-        "rootDir": "src",
-        "outDir": "./dist/out-tsc",
-        "target": "ES5",
-        "module": "commonjs",
-        "experimentalDecorators": true, // used by Angular
-        "sourceMap": true
-    },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "**/*.spec.ts"
-    ]
-}
-                            </code>
-                        </pre>
-                    </section>
-
-                    <section>
-                        <p>If the tsconfig.json is not in the current directory specify the</p>
-                        <p><span style="color: green;">--project</span> flag with the relative path to the tsconfig</p>
-                    </section>
                     
                     <section>
                         <h2>Transpiling TypeScript Interactively</h2>
@@ -630,6 +590,46 @@ workers.forEach(function (worker) { return worker.increasePay(30); });
                     </section>
 
                     <section>
+                        <p>Installing the TypeScript transpiler</p>
+                        <p style="color: green">npm i -g typescript</p><br />
+
+                        <p>To transpile a typescript file (.ts) to a .js file:</p>
+                        <p><span style="color: green">tsc —t ES5 file_name </span> (-t specifies the target to be ES5 the standard supported by all browsers)</p>
+                    </section>
+
+                    <section>
+                        <p>TypeScript configuration file (tsconfig.json)</p>
+                        <p>Saves us from writing tons of flags</p>
+                        <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html">List of all the options</a>
+                        <pre>
+                            <code class="hljs javascript">
+{
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "./dist/out-tsc",
+        "target": "ES5",
+        "module": "commonjs",
+        "experimentalDecorators": true, // used by Angular
+        "sourceMap": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>If the tsconfig.json is not in the current directory specify the</p>
+                        <p><span style="color: green;">--project</span> flag with the relative path to the tsconfig</p>
+                    </section>
+
+                    <section>
                         <p>Recap</p>
     
                         <ul>
@@ -996,6 +996,119 @@ export class ChildComponent { }
                         <ul>
                             <li>We can project content to a child component by using the &lt;ng-content&gt;</li>
                             <li>We can have multiple content projection by adding a select attribute to the &lt;ng-content&gt;</li>
+                        </ul>
+                    </section>
+                </section>
+
+                               <section>
+                    <section>
+                        <h3>Lifecycle Hooks</h3>
+                        <a href="https://angular.io/guide/lifecycle-hooks#lifecycle-sequence" target="_blank">https://angular.io/guide/lifecycle-hooks#lifecycle-sequence</a>
+                    </section>
+
+                    <section>
+                        <p>Angular calls lifecycle hook methods on directives and components as it creates, changes, and destroys them</p>
+                    </section>
+
+                    <section>
+                        <p>
+                            Each interface has a single hook method whose name is the interface name prefixed with ng.
+                            For example, the <i>OnInit</i> interface has a hook method named <i>ngOnInit</i> that Angular calls shortly after creating the component
+                        </p>
+                        <pre class="fragment">
+                        <code data-trim class="hljs javascript">
+export class CarComponent implements OnInit {
+    // implement OnInit's `ngOnInit` method
+    ngOnInit() { 
+        console.log("On init car component"); 
+    }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>
+                            The <i>OnChanges</i> interface has a hook method named <i>ngOnChanges</i>
+                        </p>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript">
+export class CarComponent implements OnChanges {
+    ngOnChanges() { 
+        console.log("On change car component"); 
+    }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p class="fragment">Change Detection (CD)</p>
+                        <ul>
+                            <li class="fragment">CD is about updating the view whenever the underlying model changes </li>
+                            <li class="fragment">CD is implemented in the library zone.js </li>
+                            <li class="fragment">When async event happens in your browser’s app, CD starts checking components and updates the views </li>
+                            <li class="fragment">CD runs unidirectionally from the root of the component tree to each leaf </li>
+                            <li class="fragment">Each component has its own change detector that checks if the values in its template expressions (e.g. {{prodTitle}} or [prodId]="productId") has changed.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <p>CD strategies: Default vs OnPush</p>
+                        <p style="font-size: 0.7em;">changeDetection: ChangeDetectionStrategy.OnPush</p>
+                        <img style="height: 300px;" src="./img/CD_1.png" />
+                        <p style="font-size: 0.7em;">With OnPush strategy the Zone won’t check a component unless the reference of the value bound to its @Input properties change. </p>
+                    </section>
+
+                    <section>
+                        <p>CD strategies: Default vs OnPush</p>
+                        <img style="height: 300px;" src="./img/CD_2.png" />
+                        <p style="font-size: 0.7em;">A change in GrandChild1 will cause change detection in all components shown with blue background. </p>
+                    </section>
+
+                    <section>
+                        <p>We would still like to trigger CD in the OnPush component</p>
+
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript">
+@Component({
+selector: 'ngt-component',
+template: `
+    <h2>{{car.id}}</h2>
+    <h2>{{car.name}}</h2>
+`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class CarDetailsComponent {
+    protected car: { id, name };
+
+    constructior(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef
+    ) { 
+        this.loadData(7);
+    }
+
+    private loadData(id: number) {
+        this.productService.getCarById(id)
+            .subscribe(car => {
+                this.car = car; // CD won't run
+                this.cd.detectChanges(); // runs for component and all children
+            });
+    }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+
+                        <ul>
+                            <li>Angular invokes the lifecycle hooks at a given time during the component lifetime</li>
+                            <li>Fetching of the data should be placed in the ngOnInit implementation</li>
+                            <li>Change detection is performed automatically using zone.js library</li>
+                            <li>We can stop the automatic change detection to improve performance, with ChangeDetection.OnPush but it's up to us to trigger it when needed</li>
                         </ul>
                     </section>
                 </section>
@@ -1574,119 +1687,6 @@ export class CarDetailsComponent {
 }
                         </code>
                     </pre>
-                </section>
-
-                <section>
-                    <section>
-                        <h3>Lifecycle Hooks</h3>
-                        <a href="https://angular.io/guide/lifecycle-hooks#lifecycle-sequence" target="_blank">https://angular.io/guide/lifecycle-hooks#lifecycle-sequence</a>
-                    </section>
-
-                    <section>
-                        <p>Angular calls lifecycle hook methods on directives and components as it creates, changes, and destroys them</p>
-                    </section>
-
-                    <section>
-                        <p>
-                            Each interface has a single hook method whose name is the interface name prefixed with ng.
-                            For example, the <i>OnInit</i> interface has a hook method named <i>ngOnInit</i> that Angular calls shortly after creating the component
-                        </p>
-                        <pre class="fragment">
-                        <code data-trim class="hljs javascript">
-    export class CarComponent implements OnInit {
-        // implement OnInit's `ngOnInit` method
-        ngOnInit() { 
-            console.log("On init car component"); 
-        }
-    }
-                            </code>
-                        </pre>
-                    </section>
-
-                    <section>
-                        <p>
-                            The <i>OnChanges</i> interface has a hook method named <i>ngOnChanges</i>
-                        </p>
-                        <pre class="fragment">
-                        <code data-trim class="hljs javascript">
-    export class CarComponent implements OnChanges {
-        ngOnChanges() { 
-            console.log("On change car component"); 
-        }
-    }
-                            </code>
-                        </pre>
-                    </section>
-
-                    <section>
-                        <p class="fragment">Change Detection (CD)</p>
-                        <ul>
-                            <li class="fragment">CD is about updating the view whenever the underlying model changes </li>
-                            <li class="fragment">CD is implemented in the library zone.js </li>
-                            <li class="fragment">When async event happens in your browser’s app, CD starts checking components and updates the views </li>
-                            <li class="fragment">CD runs unidirectionally from the root of the component tree to each leaf </li>
-                            <li class="fragment">Each component has its own change detector that checks if the values in its template expressions (e.g. {{prodTitle}} or [prodId]="productId") has changed.</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <p>CD strategies: Default vs OnPush</p>
-                        <p style="font-size: 0.7em;">changeDetection: ChangeDetectionStrategy.OnPush</p>
-                        <img style="height: 300px;" src="./img/CD_1.png" />
-                        <p style="font-size: 0.7em;">With OnPush strategy the Zone won’t check a component unless the reference of the value bound to its @Input properties change. </p>
-                    </section>
-
-                    <section>
-                        <p>CD strategies: Default vs OnPush</p>
-                        <img style="height: 300px;" src="./img/CD_2.png" />
-                        <p style="font-size: 0.7em;">A change in GrandChild1 will cause change detection in all components shown with blue background. </p>
-                    </section>
-
-                    <section>
-                        <p>We would still like to trigger CD in the OnPush component</p>
-
-                        <pre class="fragment">
-                            <code data-trim class="hljs javascript">
-    @Component({
-    selector: 'ngt-component',
-    template: `
-        <h2>{{car.id}}</h2>
-        <h2>{{car.name}}</h2>
-    `,
-        changeDetection: ChangeDetectionStrategy.OnPush
-    })
-    export class CarDetailsComponent {
-        protected car: { id, name };
-
-        constructior(
-            private productService: ProductService,
-            private cd: ChangeDetectorRef
-        ) { 
-            this.loadData(7);
-        }
-
-        private loadData(id: number) {
-            this.productService.getCarById(id)
-                .subscribe(car => {
-                    this.car = car; // CD won't run
-                    this.cd.detectChanges(); // runs for component and all children
-                });
-        }
-    }
-                            </code>
-                        </pre>
-                    </section>
-
-                    <section>
-                        <p>Recap</p>
-
-                        <ul>
-                            <li>Angular invokes the lifecycle hooks at a given time during the component lifetime</li>
-                            <li>Fetching of the data should be placed in the ngOnInit implementation</li>
-                            <li>Change detection is performed automatically using zone.js library</li>
-                            <li>We can stop the automatic change detection to improve performance, with ChangeDetection.OnPush but it's up to us to trigger it when needed</li>
-                        </ul>
-                    </section>
                 </section>
 
                 <section>
