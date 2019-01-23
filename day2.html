@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Day 2 - NgModules / DI / Routing / Observables / Forms</title>
+    <title>Day 2 - NgModules / Routing / Observables / Forms</title>
 
     <link rel="stylesheet" href="css/reveal.css">
     <link rel="stylesheet" href="css/theme/black.css">
@@ -33,6 +33,37 @@
 <body>
     <div class="reveal">
         <div class="slides">
+            <section>
+                <section>
+                    <h2>JavaScript Modules</h2>
+                    <div class="fragment">
+<pre>
+    <code class="hljs javascript">
+export const MY_CONST = 42;
+
+export function* myGeneratorFunc() {
+    yield something;
+}
+export class MyClass {
+    ···
+}
+
+export default myDefaultVar = 42;
+    </code>
+</pre>
+<pre>
+    <code class="hljs javascript">
+import myDefaultVar, { MY_CONST } from 'path-to-file'
+    </code>
+</pre>                        
+                    </div>
+                </section>
+                <section>
+                    <p class="fragment">- each file is a module and all objects defined in the file belong to that module</p>
+                    <p class="fragment">- public properties marked with export keyword</p>
+                    <p class="fragment">- other JavaScript modules use import statements to access public objects from other modules</p>
+                </section>
+            </section>
             <section>
                 <section>
                     <h2>NgModules</h2>
@@ -91,24 +122,27 @@ export class AppModule { }
                 <section>
                     <h4>Bootstrap</h4>
                     <ul>
-                        <li class="fragment">The component(s) to bootstrap </li>
+                        <li class="fragment">the root component that Angular creates and inserts into the index.html host web page</li>
+                        <li class="fragment">base of the tree of components</li>
                     </ul>
                 </section>
                 <section>
                     <h4>entryComponents</h4>
                     <ul>
-                        <li class="fragment">Components that cannot be reached by compiler </li>
+                        <li class="fragment">Components that cannot be reached by compiler</li>
+                        <li class="fragment">bootstrapped root component / specified in a route definition</li>
+                        <li class="fragment">the Angular compiler only generates code for components which are reachable from the entryComponents</li>
                     </ul>
                 </section>
 
-                <section>
+                <!-- <section>
                     <h2>AppModule / Application root module</h2>
                     <ul>
                         <li class="fragment">Contains the component for bootstrap - launch the app</li>
                         <li class="fragment">Dynamic bootstraping - JIT Compiler</li>
                         <li class="fragment">Static bootstraping - AOT Compiler</li>
                     </ul>
-                </section>
+                </section> -->
 
                 <section>
                     <h2>Feature modules</h2>
@@ -119,7 +153,103 @@ export class AppModule { }
                         <li class="fragment">Can expose or hide its implementations from other modules</li>
                         <ul>
                 </section>
-
+                <section>
+                  <h2>Domain modules</h2>
+                  <ul>
+                      <li class="fragment">particular application domain</li>
+                      <li class="fragment">consists mostly of declarations</li>
+                      <li class="fragment">only the top component is exported</li>
+                      <li class="fragment">imported exactly once by a feature module</li>
+                      <ul>
+              </section>
+              <section>
+                <h2>Routed modules</h2>
+                <ul>
+                  <li class="fragment">domain modules whose top component are target of a route navigation</li>
+                  <li class="fragment">all lazy loaded modules</li>
+                  <li class="fragment">does not export anything</li>
+                  <li class="fragment">must not be imported</li>
+                  <li class="fragment">rarely have providers</li>
+                <ul>
+              </section>
+              <section>
+                <h2>Routing modules</h2>
+                <ul>
+                  <li class="fragment">used for separating route concerns</li>
+                  <li class="fragment">define routes and add routes config to the router</li>
+                  <li class="fragment">adds guards and resolvers</li>
+                  <li class="fragment">foo.module.ts -> foo-routing.module.ts</li>
+                  <li class="fragment">imports and re-exports the routing module</li>
+                  <li class="fragment">does not have own declarations</li>
+                <ul>
+              </section>
+              <section>
+                <h2>Service modules</h2>
+                <ul>
+                  <li class="fragment">provide utility services ( data access, messaging )</li>
+                  <li class="fragment">entirely of providers / no declarations (HttpClientModule)</li>
+                  <li class="fragment">imported only in root AppModule</li>
+                </ul>
+              </section>
+              <section>
+                <h2>Widget modules</h2>
+                <ul>
+                  <li class="fragment">makes declarables available to external modules</li>
+                  <li class="fragment">3rdParty, Visual libraries / components</li>
+                  <li class="fragment">consists entirely of declarations / rarely have providers</li>
+                  <li class="fragment">can be imported anywhere</li>
+                <ul>
+              </section>
+                <section>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature Module</th>
+                                <th>Declarations</th>
+                                <th>Providers</th>
+                                <th>Exports</th>
+                                <th>Imported by</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Domain</td>
+                                <td>Yes</td>
+                                <td>Rare</td>
+                                <td>Top component</td>
+                                <td>Feature, AppModule</td>
+                            </tr>
+                            <tr>
+                                <td>Routed</td>
+                                <td>Yes</td>
+                                <td>Rare</td>
+                                <td>No</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td>Routing</td>
+                                <td>No</td>
+                                <td>Yes (guards)</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Service</td>
+                                <td>No</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>AppModule</td>
+                            </tr>
+                            <tr>
+                                <td>Widget</td>
+                                <td>Yes	</td>
+                                <td>Rare</td>
+                                <td>Yes</td>
+                                <td>Feature</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
                 <section>
                     <h4>Loading</h4>
                     <ul>
@@ -134,7 +264,7 @@ export const routes: Routes = [
 ...
 { 
     path: 'lazy-loaded-module', 
-    loadChildren: 'app/lazy/lazy-module.module#LazyModule' 
+    loadChildren: 'app/lazy/lazy-module.module#LazyModule' //relative path to the module
 },
 ...
 ];
@@ -143,194 +273,26 @@ export const routes: Routes = [
                         </li>
                         <ul>
                 </section>
-
                 <section>
-                    <h4>Shared Modules</h4>
+                    <h2>forRoot() / forChild()</h2>
                     <ul>
-                        <li class="fragment">exists to make commonly used components, directives, and pipes available for use in many other modules</li>
-                        <li class="fragment">Don't specify providers here!</li>
-                        <li class="fragment">Can export modules without using their functionalities</li>
-                        <ul>
-                </section>
-
-                <section>
-                    <h4>Core Module</h4>
+                      <li class="fragment">forRoot() - injector configuration, only one time in root module</li>
+                      <li class="fragment">forChild() - not injector configuration, only directives</li>
                     <ul>
-                        <li class="fragment">Pure service module with no declarations</li>
-                        <li class="fragment">Specify the Core items that will be used in all modules (eg: a UserService)</li>
-                        <li class="fragment">Imported once when the app starts and never imported anywhere else</li>
-                        <ul>
-                </section>
-
-                <section>
-                    <h4>Routing module</h4>
-                    <ul>
-                        <li class="fragment">Separates routing / application concerns</li>
-                        <li class="fragment">Provides a module to replace or remove when testing the application</li>
-                        <li class="fragment">Provides a well-known location for routing service providers including guards and resolvers</li>
-                        <li class="fragment">Does not declare components</li>
-                        <li class="fragment">Imports the RouterModule, configures it and Re-exports it</li>
-                        <ul>
-                </section>
-                <section>
-                    <pre><code class="javascript">
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-...
-const routes: Routes = [
-    { path: '', component: ListComponent },
-    { path: ':id', component: DetailComponent},
-    { path: ':id/edit', component: EditComponent}
-];
-
-@NgModule({
-    imports: [ RouterModule.forChild(routes)],
-    exports: [ RouterModule ]
-})
-export class CarsRoutingModule {}    
-...
-                            </code></pre>
-
-                </section>
-                <section>
-                    <pre><code class="javascript">
-...
-import { CarsRoutingModule } from './cars.routing';
-...
-@NgModule({
-    imports: [CarsRoutingModule, SharedModule],
-    declarations: [DetailComponent, EditComponent],
-    exports: [CarMenuComponent],
-    providers: [CarsService]
-  })
-  export class CarsModule {} 
-...
-                            </code></pre>
-
-                </section>
+                  </section>
+    
             </section>
-
-            <section>
-                <section>
-                    <h2>Dependency Injection</h2>
-                    <ul>
-                        <li>
-                            <i>DI</i> - software design pattern used for resolving dependencies</li>
-                        <li>
-                            <i>Dependency</i> - an object that can be used (a service)</li>
-                        <li>
-                            <i>Injection</i> - passing of a dependency to a dependent object (a client)</li>
-                        <li>
-                            <i>Angular Injector</i> - responsible for creating service instances and injecting them into classes</li>
-                    </ul>
-                    <p class="fragment">A class receives its dependencies from external sources rather than creating them itself.</p>
-                </section>
-                <section>
-                    <h4>Provider</h4>
-                    <ul>
-                        <li>tell the injector how to create the service</li>
-                        <li>must be registered with an injector</li>
-                    </ul>
-                    <pre><code class="hljs javascript">
-providers: [
-    UserService,
-    { provide: APP_CONFIG, useValue: HERO_DI_CONFIG }
-],    
-                        </code></pre>
-                </section>
-                <section>
-                    <h4>Provider types</h4>
-                    <ul>
-                        <li>Class Provider (
-                            <i>useClass</i>)</li>
-                        <li>FactoryProvider (
-                            <i>useFactory</i>)</li>
-                        <li>Aliased Class Provider (
-                            <i>useExisting</i>)</li>
-                        <li>Value Provider (
-                            <i>useValue</i>)</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <pre>
-                                <code class="hljs javascript">let heroServiceFactory = (logger: Logger, userService: UserService) => {
-  return new HeroService(logger, userService.user.isAuthorized);
-};
-
-export let heroServiceProvider =
-  { provide: HeroService,
-    useFactory: heroServiceFactory,
-    deps: [Logger, UserService] //provider tokens - resolved by injector
-  };
-                                </code>
-                            </pre>
-                </section>
-
-                <section>
-                    <h4>@Injectable()</h4>
-                    <ul>
-                        <li>identifies a service class that might require injected dependencies</li>
-                        <li>required coding style for services</li>
-                    </ul>
-                    <p></p>
-                    <!--<pre>
-                            <code class="hljs javascript">import { Injectable } from '@angular/core';
-
-@Injectable() //let the injector know that this is injectable
-export class SomeService {
-  
-}</code>
-                        </pre>//-->
-                </section>
-
-                <section>
-                    <ul>
-                        <li>The Providers can be registered in components
-                            <pre>
-                                    <code class="hljs javascript">import { SomeService } from 'somewhere';
-@Component({
-...
-providers: [SomeService],
-...</code>
-                                </pre>
-                            <small>available only in that component and its children</small>
-                        </li>
-                        <li>or in modules
-                            <pre>
-                                    <code class="hljs javascript">import { SomeService } from 'somewhere';
-@NgModule({
-...
-providers: [SomeService],
-...</code>
-                                </pre>
-                            <small>available application wide</small>
-                        </li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h4>Injection of a dependency</h4>
-                    <pre>
-                                    <code class="hljs javascript">import { SomeService } from 'somewhere';
-...
-constructor(protected service: SomeService) { 
-... 
-}</code>
-                                </pre>
-                </section>
-
-            </section>
-
 
             <section>
                 <section>
                     <h2>Routing</h2>
-                    <p class="fragment">The Angular Router enables navigation from one view to the next</p>
+                    <ul>
+                      <li>Angular router</li>
+                      <li>enables navigation from one view to the next</li>
+                    </ul>
                 </section>
 
                 <section>
-                    <h4>Routing</h4>
                     <pre>
                             <code class="hljs javascript">
 const appRoutes: Routes = [
@@ -377,11 +339,11 @@ export class AppModule { }
                         <li>routerLinkActive</li>
                     </ul>
                     <pre>
-                            <code class="hljs xml">
+<code class="hljs xml">
 <a routerLink="/url-to-navigate" routerLinkActive="active">Simple Url</a>
 <a [routerLink]="['url', user.id]" routerLinkActive="active">User edit</a>
 <!-- link parameters array //-->
-                            </code>
+</code>
                         </pre>
                 </section>
 
@@ -401,10 +363,13 @@ constructor(
 ) {}
 ...
 ngOnInit() {
-  this.route.paramMap //<-- provided as Oservable
+  this.route.paramMap.pipe(
     // (+) converts string 'id' to a number
-    .switchMap((params: ParamMap) => this.service.fetchSomeData(+params['id']))
-    .subscribe(data => this.data = data);
+    .switchMap((params: ParamMap) => {
+      return this.service.fetchSomeData(+params['id']);
+    })
+  )
+  .subscribe(data => this.data = data);
 }
 
                             </code>
@@ -420,7 +385,7 @@ ngOnInit() {
                     </ul>
                 </section>
 
-                <section>
+                <!-- <section>
                     <h4>Snapshot</h4>
                     <ul>
                         <li class="fragment">Makes available only the initial value of the params of the route</li>
@@ -438,7 +403,7 @@ ngOnInit() {
 
                             </code>
                         </pre>
-                </section>
+                </section> -->
 
                 <section>
                     <h4>Child Routes</h4>
@@ -533,14 +498,12 @@ import { Injectable }       from '@angular/core';
 import {
     CanActivate, Router,
     ActivatedRouteSnapshot,
-    RouterStateSnapshot,
-    CanActivateChild,
-    CanLoad
-}                           from '@angular/router';
+    RouterStateSnapshot
+} from '@angular/router';
 import { AuthService }      from './auth.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
+export class AuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) {
 
     }
@@ -549,16 +512,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         let url: string = state.url;
         return this.checkLogin(url);
     }
-
-    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        return this.canActivate(route, state);
-    }
-
-    canLoad(route: Route): boolean {
-        let url = `/${route.path}`;
-      
-        return this.checkLogin(url);
-      }
 }
                                 </code>
                             </pre>
@@ -644,7 +597,7 @@ export class SelectivePreloadingStrategy implements PreloadingStrategy {
                         </li>
                     </ul>
                 </section>
-                <section>
+                <!-- <section>
                     <h4>Template driven forms</h4>
                     <p>
                         <code class="hljs javascript"><pre>
@@ -694,48 +647,9 @@ import { FormsModule } from '@angular/forms';</pre></code>
                         <li>value became invalid </li>
                         <li>updates the css with classes reflecting the state </li>
                     </ul>
-                </section>
+                </section> -->
 
-                <section>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>State</th>
-                                <th>Class if true</th>
-                                <th>Class if false</th>
-                            </tr>
-                            <tr>
-                                <td>The control has been visited.</td>
-                                <td>
-                                    <code>ng-touched</code>
-                                </td>
-                                <td>
-                                    <code>ng-untouched</code>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>The control's value has changed.</td>
-                                <td>
-                                    <code>ng-dirty</code>
-                                </td>
-                                <td>
-                                    <code>ng-pristine</code>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>The control's value is valid.</td>
-                                <td>
-                                    <code>ng-valid</code>
-                                </td>
-                                <td>
-                                    <code>ng-invalid</code>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
-
-                <section>
+                <!-- <section>
                     <ul>
                         <li>add reference variable to "spy" the input -> #spyName</li>
                         <li>submit with ngSubmit()
@@ -746,75 +660,92 @@ import { FormsModule } from '@angular/forms';</pre></code>
                         </pre>
                         </li>
                     </ul>
-                </section>
+                </section> -->
 
                 <section>
-                    <h2>Reactive/model driven forms</h2>
-                    <p>
+                    <h2>Reactive forms</h2>
+                    <!-- <p>
                         <code class="hljs javascript"><pre>
 import { ReactiveFormsModule } from '@angular/forms';</pre></code>
-                    </p>
+                    </p> -->
                     <ul>
-                        <li>does not use data binding to move data into and out of the form controls</li>
-                        <li>the component class is responsible for defining and managing the form control model</li>
-                        <li>create a tree of Angular form control objects</li>
+                        <li>more: robust, scalable, reusable, testable</li>
+                        <li>build around Observable streams</li>
+                        <li>keep the data model pure</li>
+                        <li>each change to form state returns a new state</li>
                     </ul>
+<pre>
+  <code class="hljs javascript">
+    import { ReactiveFormsModule } from '@angular/forms';
+  </code>
+</pre>
                 </section>
 
                 <section>
-                    <h4>Create reactive forms component</h4>
-                    <p>
-                        <code class="hljs javascript"><pre>
-import { FormControl } from '@angular/forms';
-...
-export class SomeComponent {
-  name = new FormControl(initVal, syncValidators[], asyncValidators[]);
-}</pre></code>
-                    </p>
-                    <h4>Add it to the form</h4>
-                    <p>
-                        <code class="hljs javascript"><pre>
+                    <h4>Create</h4>
+<pre>
+  <code class="hljs javascript">
+this.name = new FormControl('');
+
+//read value
+this.name.valueChanges.subscribe(...);
+  </code>
+</pre>
+                    <h4>Add it to the view</h4>
+<pre>
+  <code class="hljs javascript">
 <label class="center-block">Name:
   <input class="form-control" [formControl]="name">
+  Value: {{ name.value }} <!-- Read value -->
 </label>
-</pre></code>
-                    </p>
-
+  </code>
+</pre>
+                  <h4>Update value</h4>
+<pre>
+  <code class="hljs javascript">
+    this.name.setValue('New value');
+  </code>
+</pre>
                 </section>
                 <section>
-                    <h4>Create a form group</h4>
-                    <p>
-                        <code class="hljs javascript"><pre>
- theForm = new FormGroup ({
-    name: new FormControl()
-  });
-}</pre></code>
-                    </p>
-                    <h4>Add it to the template</h4>
-                    <p>
-                        <code class="hljs javascript"><pre>
-<form [formGroup]="theForm" novalidate>
-  <div class="form-group">
-    <label class="center-block">Name:
-      <input class="form-control" formControlName="name">
-    </label>
-  </div>
+                  <h4>Form groups</h4>
+<pre>
+  <code class="hljs javascript">
+profileForm: FormGroup;
+...
+  ngOnInit() {
+    this.profileForm = new FormGroup({
+      firstName: new FormControl(initialValue, validators, asyncValidators);
+    })
+  }
+  ...
+  onSubmit() {
+    console.log(this.profileForm.value);
+  }
+}
+  </code>
+</pre>                    
+<pre>
+  <code class="hljs javascript">
+<form [formGroup]="profileForm" (ngSubmit)='onSubmit()'>
+  <label>
+    First Name:
+    <input type="text" formControlName="firstName">
+  </label>
 </form>
-</pre></code>
-                    </p>
-
+  </code>
+</pre>
                 </section>
 
                 <section>
-                    <h4>FormBuilder</h4>
-                    <p>
-                        <code class="hljs javascript"><pre>
+                    <h4>Form Builder</h4>
+<pre>
+<code class="hljs javascript">
 import { FormBuilder, FormGroup } from '@angular/forms';
-</pre></code>
-                    </p>
-                    <h4>How to use form builder</h4>
-                    <p>
-                        <code class="hljs javascript"><pre>
+</code>
+</pre>
+<pre>
+  <code class="hljs javascript">
 export class DetailComponent3 {
   theForm: FormGroup; // <--- theForm is of type FormGroup
 
@@ -828,9 +759,8 @@ export class DetailComponent3 {
     });
   }
 }
-
-</pre></code>
-                    </p>
+</code>
+</pre>
                     <p>FormBuilder.group is a factory method that creates a FormGroup</p>
                 </section>
 
@@ -856,7 +786,7 @@ Form status: {{ theForm.status | json }}
     });</pre></code>
                     </p>
                 </section>
-                <section>
+                <!-- <section>
                     <p>
                         <p>
                             <code class="hljs javascript"><pre>&nbsp;<div formGroupName="address" class="well well-lg">
@@ -887,7 +817,7 @@ Form status: {{ theForm.status | json }}
 </pre></code>
                         </p>
 
-                </section>
+                </section> -->
 
                 <section>
                     <table width="100%" style="font-size:28px">
@@ -969,6 +899,65 @@ this.myForm.patchValue({
 </pre></code>
                     </p>
                 </section>
+<section>
+  <h2>Validation</h2>
+  <ul>
+    <li><a taraget='blank' href="https://angular.io/api/forms/Validators">Built in validators</a></li>
+    <li>sync validators</li>
+    <li>async validators - executed only all sync validators passes</li>
+  </ul>
+</section>
+<section>
+  <h2>Custom validators</h2>
+<pre>
+  <code class="hljs javascript">
+export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const forbidden = nameRe.test(control.value);
+    return forbidden ? {'forbiddenName': {value: control.value}} : null;
+  };
+}
+  </code>
+</pre>
+</section>
+<section>
+  <table>
+      <tbody>
+          <tr>
+              <th>State</th>
+              <th>Class if true</th>
+              <th>Class if false</th>
+          </tr>
+          <tr>
+              <td>The control has been visited.</td>
+              <td>
+                  <code>ng-touched</code>
+              </td>
+              <td>
+                  <code>ng-untouched</code>
+              </td>
+          </tr>
+          <tr>
+              <td>The control's value has changed.</td>
+              <td>
+                  <code>ng-dirty</code>
+              </td>
+              <td>
+                  <code>ng-pristine</code>
+              </td>
+          </tr>
+          <tr>
+              <td>The control's value is valid.</td>
+              <td>
+                  <code>ng-valid</code>
+              </td>
+              <td>
+                  <code>ng-invalid</code>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+</section>
             </section>
 
 
@@ -1058,9 +1047,8 @@ this.http.get<&#67;onfig>(this.configUrl)
 
             <section>
                 <section>
-                    <h2>Observables</h2>
-                    <p class="fragment">Stream of events you can process with array like operators</p>
-                    <p class="fragment">Streams: series of values in time</p>
+                    <h2>Reactive programming</h2>
+                    <p class="fragment">async programming paradigm concerned with data streams and the propagation of change</p>
                 </section>
                 <!--<section>
                 <h3>RxJS</h3>
@@ -1073,51 +1061,118 @@ this.http.get<&#67;onfig>(this.configUrl)
                     </section>-->
 
                 <section>
+                    <h2>RxJS</h2>
                     <ul>
-                        <li>Import the RxJS library:
-                            <pre>
-                                    <code class="hljs javascript">
-    import { Observable } from 'rxjs/Observable';
-                                    </code>
-                                </pre>
-                        </li>
-                        <li class="fragment">Enable the RxJS operators:
-                            <pre>
-                                    <code class="hljs javascript">
-    import { Observable } from 'rxjs/Observable';
-    import 'rxjs/add/operator/catch';
-    import 'rxjs/add/operator/map';
-                                    </code>
-                                </pre>
-                        </li>
-                        <li class="fragment">Process data:
-                            <pre>
-                                    <code class="hljs javascript">
-this.http.get(someUrl)
-    .map(data => data.json)
-    .catch(err => handleTheErr)
-                                    </code>
-                                </pre>
-                        </li>
-
+                      <li class="fragment">provides implementation for observables</li>
+                      <li class="fragment">utility functions for creating & working with Observables</li>
+                      <li class="fragment">converting existing code for async operations to Observables </li>
+                      <li class="fragment">iterating thru the values of a stream </li>
+                      <li class="fragment">maping values to different types</li>
+                      <li class="fragment">filtering / computing multiple streams</li>
                     </ul>
                 </section>
 
                 <section>
-                    <ul>
-                        <li class="fragment">Pipe-able approach
-                            <pre>
+                  <h2>Creating operators</h2>
+                  <p>from async code</p>
+                  <pre>
+                      <code class="hljs javascript">
+import { from } from 'rxjs';
+
+// Create an Observable out of a promise
+const data = from(fetch('/api/endpoint'));
+
+// Subscribe to begin listening for async result
+data.subscribe({
+  next(response) { console.log(response); },
+  error(err) { console.error('Error: ' + err); },
+  complete() { console.log('Completed'); }
+});
+                      </code>
+                  </pre>
+                </section>
+                <section>
+                    <p>from a counter</p>
+                    <pre>
+                        <code class="hljs javascript">
+import { interval } from 'rxjs';
+
+// Create an Observable that will publish a value on an interval
+const secondsCounter = interval(1000);
+
+// Subscribe to begin publishing values
+secondsCounter.subscribe(n =>
+console.log(`It's been ${n} seconds since subscribing!`));
+                        </code>
+                    </pre>
+                  </section>
+                  <section>
+                      <p>from ajax</p>
+                      <pre>
+                          <code class="hljs javascript">
+import { ajax } from 'rxjs/ajax';
+
+// Create an Observable that will create an AJAX request
+const apiData = ajax('/api/data');
+// Subscribe to create the request
+apiData.subscribe(res => console.log(res.status, res.response));
+                          </code>
+                      </pre>
+                    </section>
+                    <section>
+                        <p>from a DOM event</p>
+                        <pre>
                             <code class="hljs javascript">
-typeahead = fromEvent(searchBox, 'input').pipe(
-    map((e: any) => e.target.value),
-    filter(text => text.length > 2),
-    debounceTime(10),
-    distinctUntilChanged(),
-    switchMap(term => ajax('some/url'))
-);
+import { fromEvent } from 'rxjs';
+
+const el = document.getElementById('my-element');
+  
+// Create an Observable that will publish mouse movements
+const mouseMoves = fromEvent(el, 'mousemove');
                             </code>
                         </pre>
-                        </li>
+                      </section>
+
+                <section>
+                  <h2>Operators</h2>
+                  <ul>
+                      <li>functions that allows to manipulate of collections - <a target="blank" href="https://rxjs-dev.firebaseapp.com/api">API</a></li>
+                      <li>creation, combination, filtering, transformation, utility, multicasting</li>
+                  </ul>
+                  
+<pre>
+  <code class="hljs javascript">
+import { filter, map } from 'rxjs/operators';
+
+const nums = of(1, 2, 3, 4, 5);
+
+// Create a function that accepts an Observable.
+const squareOddVals = pipe(
+  filter((n: number) => n % 2 !== 0),
+  map(n => n * n)
+);
+
+// Create an Observable that will run the filter and map functions
+const squareOdd = squareOddVals(nums);
+
+// Suscribe to run the combined functions
+squareOdd.subscribe(x => console.log(x));
+  </code>
+</pre>
+<!-- <a href="https://rxjs-dev.firebaseapp.com/api">Common operators</a> -->
+                </section>
+                <section>
+                    <h2>Error handling</h2>
+                    <p>catchError operator</p>
+                </section>
+                <section>
+                    <h2>Observables in Angular</h2>
+                    <ul>
+                      <li>EventEmitter</li>
+                      <li>Http</li>
+                      <li>async pipe</li>
+                      <li>Router: events, activatedRoute, etc</li>
+                      <li>Reactive forms</li>
                     </ul>
                 </section>
                 <!--<section>
@@ -1185,27 +1240,6 @@ typeahead = fromEvent(searchBox, 'input').pipe(
                 <p>Yes, and it's very fun !</p>
                 <a href="http://rxmarbles.com/#map" target="_blank"><img src="img/marble.map.png" alt="map"></a>
             </section>-->
-                <section>
-                    <ul>
-                        <li>Create streams:
-                            <pre>
-                                    <code class="hljs javascript">import { Subject } from 'rxjs/Subject';
-...
-private searchTermStream = new Subject&laquo;string&raquo;();
-search(term: string) { this.searchTermStream.next(term); }</code>
-                                </pre>
-                        </li>
-                        <li class="fragment">Listen to streams:
-                            <pre>
-                                    <code class="hljs javascript">this.items = this.searchTermStream
-  .debounceTime(300) //waits
-  .distinctUntilChanged() //ensure distinct
-  .switchMap((term: string) => this.service.search(term));</code>
-                                </pre>
-                        </li>
-                    </ul>
-
-                </section>
             </section>
         </div>
     </div>
