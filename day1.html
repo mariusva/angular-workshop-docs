@@ -35,6 +35,626 @@
                     <p><img src="https://angular.io/assets/images/logos/angular/angular.svg" style="width: 250px;" class="custom-image" alt="Angular"></p>
                     <p class="fragment">A platform and framework for building client applications in HTML and TypeScript.</p>
                 </section>  
+
+                <section>
+                    <!-- NPM -->
+                    <section>
+                        <p>Node Package Manager (npm)</p>
+                        <p>You can find all the packages on npmjs.org</p>
+                    </section>
+
+                    <section>
+                        <p>In order to install a package you have to wirte: </p>
+                        <p>npm install package_name </p> <br />
+                        <p>The module will be installed in a directory called node_modules inside the directory where you ran the command from.</p> <br />
+                        <p>In order to install it globally you can specify -g flag</p>
+                    </section>
+
+                    <section>
+                        <p>All the project dependencies are listed in a package.json file</p>
+                        <p>The npm install command will add the package as an entry to the package.json file (if it exists)</p>
+                        <p>To create the package.json write:</p>
+                        <p>npm init</p>
+                    </section>
+
+                    <section>
+                        <img src="./img/npm_versioning.png">
+                    </section>
+
+                    <section>
+                        <p>All the packages are installed by default under the dependencies listing</p> <br />
+                        <p>To install it under the devDependencies you need to specify the -D flag</p>
+                    </section>
+
+                    <section>
+                        <p>In order to install only the dependencies listed under the dependencies section (without devDependencies)</p> <br />
+                        <p style="color: green;"> npm i --production </p>
+                    </section>
+
+                    <section>
+                        <p>npm scripts</p>
+                        <p>pre/post scripts</p>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+"scripts": {
+    "preinstall": "scripts/preinstall.js"
+    "install" : "scripts/install.js", 
+    "postinstall" : "scripts/postinstall.js",
+    "start:server": "app/server.js"
+}
+                            </code>
+                        </pre>
+                        <p>Running the npm install command will first run the preinstall, followed by the install and finally the postinstall</p>
+                        <p>In order to run the start:server script we need to use: npm run start:server (run tells npm to execute the file)</p>
+                    </section>
+
+                    <section>
+                        <p>package-lock.json</p>
+                        <p>Pakcage lock is a file that ensures that every environment where the npm install is run will have the same version of dependencies as the user who installed them.</p>
+                        <p>Push the package-lock.json to the repository as well.</p>
+                    </section>
+
+                    <section>
+                        <p>Don't forget to place the node_modules in the .gitignore file, we shouldn't push that to the repository!</p>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+                        <ul>
+                            <li>npm is a dependency managment tool</li>
+                            <li>We can install packages using the npm install command</li>
+                            <li>We can run scripts that are not overriding default npm commands using the: npm run script_name</li>
+                            <li>Don't forget to ignore the node_modules so that it's not pushed to the repository</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <!-- Angular CLI -->
+
+                <section>
+                    <section>
+                        <p>Angular CLI</p><br />
+                        
+                        <a href="https://github.com/angular/angular-cli/wiki" target="_blank">Official documentation</a>
+                    </section>
+
+                    <section>
+                        <p>The Angular CLI helps us with:</p>
+                        <ul>
+                            <li>Scaffolding a new project that will sever as the base for our application</li>
+                            <li>Scaffolding components, directives, pipes, modules, etc.</li>
+                            <li>Has a built in development server to run our application</li>
+                            <li>Creates development and production builds</li>
+                            <li>Has built in configurable test runner (Karma as the testing framework and Jasmine as the assertion library)</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <p>Setting up the CLI</p>
+                        <ol>
+                            <li>npm i -g @angular/cli</li>
+                            <li>ng new project_name (add the --style=sass in order to generate the project using the sass css preprocessor)</li>
+                            <li>cd project_name</li>
+                            <li>ng serve -o</li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <p>Check the core files</p>
+                        <ul>
+                            <li>src directory</li>
+                            <li>main.ts file</li>
+                            <li>app.module</li>
+                            <li>angular.json</li>
+                            <li>package.json</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <p>Angular CLI scaffolding commands</p>
+                        <ul>
+                            <li>ng g c component_name (ng generate component)</li>
+                            <li>ng g s service_name (ng generate service)</li>
+                            <li>ng g m module_name (ng generate module)</li>
+                            <li>ng generate --help</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+
+                        <ul>
+                            <li>We use the CLI to generate a new app (new new app_name)</li>
+                            <li>We can use the CLI to scaffold components, services, modules, etc.</li>
+                            <li>We use the CLI to serve our application in development mode</li>
+                            <li>We use the CLI to start our test runners</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <!-- Typescript -->
+
+                <section>
+                    <section>
+                        <p>Intro into TypeScript</p>
+                        <ul>
+                            <li>A superset of JavaScript created by Microsoft</li>
+                            <li>Supports types, classes, interfaces, generics, annotations</li>
+                            <li>Easy to learn by Java, C#, and C++ developers</li>
+                            <li>Transpiles code into a human-readable JavaScript</li>
+                            <li>Supports most of the ES6 and some ES7 syntax</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h2>Transpiling TypeScript Interactively</h2>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code class="hljs javascript">
+let foo: string;
+class Bar {
+
+}
+                                    </code>
+                                </pre>
+                            </div>
+                            <div class="right-column fragment">
+                            <p>JavaScript (ES5)</p>
+                                <pre>
+                                    <code class="hljs javascript">
+var foo;
+var Bar = (function () {
+    function Bar() {
+    }
+    return Bar;
+}());
+                                </code>
+                            </pre> 
+                        </div>                        
+                    </section>
+
+                    <section>
+                        <h3>Classes</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code class="hljs javascript">
+class Person {
+    public firstName: string;
+    public lastName: string;
+    public age: number;
+}
+
+let p = new Person();
+
+p.firstName = "John";
+p.lastName = "Smith";
+p.age = 29;
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript (ES5)</p>
+                            <pre>
+                                <code class="hljs javascript">
+var Person = (function () {
+    function Person() {
+    }
+    return Person;
+}());
+
+var p = new Person();
+
+p.firstName = "John";
+p.lastName = "Smith";
+p.age = 29;
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Optional types</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code class="hljs javascript">
+// Explicit types
+let productName = 'BMW';
+productName = 'Mercedes';
+// compile error in TS
+productName = 123; 
+
+//Implicit types
+let productVendor: string = 'Samsung';
+productVendor = 'Sony';
+// compile error in TS
+productVendor = 123; 
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript (ES5)</p>
+                            <pre>
+                                <code class="hljs javascript">
+// Explicit types
+var productName = 'BMW';
+productName = 'Mercedes';
+// no compiler error in JS
+productName = 123; 
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>A Class With Constructor. Take 1</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code data-trim data-noescape class="hljs javascript small-font-code" >
+class Person {
+    public firstName: string;
+    public lastName: string;
+    public age: number;
+    private _ssn: string;
+
+    constructor(firstName: string, lastName: string, age: number, ssn: string) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this._ssn = ssn;
+    }
+}
+var p = new Person("John", "Smith", 29, "123-90-4567");
+console.log("Last name: " + p.lastName + " SSN: " + p.<mark>_ssn</mark>);
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript (ES5)</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var Person = (function () {
+    function Person(firstName, lastName, age, ssn) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this._ssn = ssn;
+    }
+    return Person;
+}());
+var p = new Person("John", "Smith", 29, "123-90-4567");
+console.log("Last name: " + p.lastName + " SSN: " + p._ssn);
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>A Class With Constructor. Take 2</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code data-trim data-noescape class="hljs javascript small-font-code">
+class Person {
+    constructor(
+        public firstName: string, 
+        public lastName: string, 
+        public age: number, 
+        private _ssn: string
+    ) { }
+}
+
+var p = new Person("John", "Smith", 29, "123-90-4567");
+console.log("Last name: " + p.lastName + " SSN: " + p.<mark>_ssn</mark>);
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript (ES5)</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var Person = (function () {
+    function Person(firstName, lastName, age, _ssn) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this._ssn = _ssn;
+    }
+    return Person;
+}());
+var p = new Person("John", "Smith", 29, "123-90-4567");
+console.log("Last name: " + p.lastName + " SSN: " + p._ssn);
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Inheritance</h3>
+                        <div class="left-column fragment">
+                            <p>Classical syntax</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+class Person {
+    constructor(
+        public firstName: string, 
+        public lastName: string, 
+        public age: number, 
+        private _ssn: string
+    ) { }
+}
+
+class Employee extends Person { }
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>Prototypal</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Person = (function () {
+    function Person(firstName, lastName, age, _ssn) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this._ssn = _ssn;
+    }
+    return Person;
+}());
+var Employee = (function (_super) {
+    __extends(Employee, _super);
+    function Employee() {
+        return _super.apply(this, arguments) || this;
+    }
+    return Employee;
+}(Person));
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Generics</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code data-trim  data-noescape class="hljs javascript small-font-code">
+class Person {
+    name: string;
+}
+
+class Employee extends Person {
+    department: number;
+}
+
+
+class Animal {
+    breed: string;
+}
+
+let workers: Array&lt;Person&gt; = [];
+workers[0] = new Person();
+workers[1] = new Employee();
+<mark>workers[2] = new Animal(); //A compile time error</mark>
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Person = (function () {
+    function Person() {
+    }
+    return Person;
+}());
+var Employee = (function (_super) {
+    __extends(Employee, _super);
+    function Employee() {
+        return _super.apply(this, arguments) || this;
+    }
+    return Employee;
+}(Person));
+var Animal = (function () {
+    function Animal() {
+    }
+    return Animal;
+}());
+var workers = [];
+workers[0] = new Person();
+workers[1] = new Employee();
+workers[2] = new Animal(); //No errors
+
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Interfaces as Custom Types</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+interface IPerson {
+    firstName: string;
+    lastName: string;
+    age?: number;
+}
+
+class Person {
+    constructor(public config: IPerson) { }
+}
+
+const aPerson: IPerson = {
+    firstName: "John",
+    lastName: "Smith",
+    age: 29
+}
+
+const p = new Person(aPerson);
+console.log("Last name: " + p.config.lastName);
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var Person = (function () {
+    function Person(config) {
+        this.config = config;
+    }
+    return Person;
+}());
+var aPerson = {
+    firstName: "John",
+    lastName: "Smith",
+    age: 29
+};
+var p = new Person(aPerson);
+console.log("Last name: " + p.config.lastName);
+//No interfaces here
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h3>Interfaces and implements</h3>
+                        <div class="left-column fragment">
+                            <p>TypeScript</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+interface IPayable {
+    increasePay(percent: number): void
+}
+class Employee implements IPayable {
+    increasePay(percent: number) {
+        //increase salary
+    }
+}
+class Contractor implements IPayable {
+    increasePay(percent: number): void {
+        //increase hourly rate
+    }
+}
+
+let workers: Array&lt;IPayable&gt; = [];
+workers[0] = new Employee();
+workers[1] = new Contractor();
+workers.forEach(worker => worker.increasePay(30));
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="right-column fragment">
+                            <p>JavaScript</p>
+                            <pre>
+                                <code data-trim class="hljs javascript small-font-code">
+var Employee = (function () {
+    function Employee() {
+    }
+    Employee.prototype.increasePay = function (percent) {
+        //increase salary
+    };
+    return Employee;
+}());
+var Contractor = (function () {
+    function Contractor() {
+    }
+    Contractor.prototype.increasePay = function (percent) {
+        //increase hourly rate
+    };
+    return Contractor;
+}());
+var workers = [];
+workers[0] = new Employee();
+workers[1] = new Contractor();
+workers.forEach(function (worker) { return worker.increasePay(30); });
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                    <section>
+                        <p>Installing the TypeScript transpiler</p>
+                        <p style="color: green">npm i -g typescript</p><br />
+
+                        <p>To transpile a typescript file (.ts) to a .js file:</p>
+                        <p><span style="color: green">tsc —t ES5 file_name </span> (-t specifies the target to be ES5 the standard supported by all browsers)</p>
+                    </section>
+
+                    <section>
+                        <p>TypeScript configuration file (tsconfig.json)</p>
+                        <p>Saves us from writing tons of flags</p>
+                        <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html">List of all the options</a>
+                        <pre>
+                            <code class="hljs javascript">
+{
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "./dist/out-tsc",
+        "target": "ES5",
+        "module": "commonjs",
+        "experimentalDecorators": true, // used by Angular
+        "sourceMap": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>If the tsconfig.json is not in the current directory specify the</p>
+                        <p><span style="color: green;">--project</span> flag with the relative path to the tsconfig</p>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+    
+                        <ul>
+                            <li>Typescript is a superset of JavaScript</li>
+                            <li>Supports types, classes, interfaces, generics, decorators</li>
+                            <li>Transpiles TypeScript code to human readable JavaScript</li>
+                            <li>We can transpile .ts files using the tsc command</li>
+                            <li>We should create a tsconfig.json file to store all our compiler options</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <p>Clone traning application</p>
+                    <pre>
+                        <code data-trim class="hljs javascript">
+git clone https://github.com/mariusva/angular-workshop
+cd angular-workshop
+git fetch
+git checkout step1
+npm install
+ng serve -o
+                        </code>
+                    </pre>
+                </section>
                     
                 <section>
                   <p>NgModules </p>
@@ -46,98 +666,769 @@ import { NgModule } from '@angular/core';
 
 @NgModule({
     imports: [...],
+    declarations: [...]
     exports: [...],
     providers: [...]
 })
-export class AppModule {
-
-}
+export class AppModule { }
                         </code>
                     </pre>
                 </section>
 
+                <!-- Angular components -->
+
                 <section>
-                  <p>Components</p>
-                  <p class="fragment">- combination of an HTML template and a component class that controls a portion of the screen<br>
-                  - class, decorator, metadata<br />
-                  - defined views<br />
-                  - use services</p>
+                    <section>
+                    <p>Components</p>
+                    <p class="fragment">- combination of an HTML template and a component class that controls a portion of the screen<br>
+                    - class, decorator, metadata<br />
+                    - defined views<br />
+                    - use services</p>
 <pre class="fragment">
     <code data-trim class="hljs javascript ">
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'my-app',
-    template: `<h1>Hello {{name}}</h1>`,
+    selector: 'ngt-component', // wrapps the whole content
+    template: ` // backtick
+        <h1>Hello {{ name }}</h1>
+    `,
+    styleUrls: ['ngt-component.css']
     providers: [...]
 })
-export class AppComponent { name = 'Angular'; }
+export class NgtComponent { 
+    protected name = 'Angular';
+}
     </code>
 </pre>
-                </section>
-                <section>
-                    <p>The big picture</p>
-                    <img src="https://angular.io/generated/images/guide/architecture/overview2.png" alt="" class="custom-image">
-                  </section>
-                <section>
-                  <p>Templates, directives, and data binding</p>
-                  <p class="fragment">- combines HTML with Angular markup that can modify the HTML elements before they are displayed</p>
-                  <p class="fragment">- Event binding lets your app respond to user input</p>
-                  <p class="fragment">- Property binding lets you interpolate values that are computed from your application data into the HTML</p>
-                </section>
+                    </section>
 
-                <section>
-                    <p>Property binding - interpolation</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript ">
+                    <section>
+                        <p>Templates, directives, and data binding</p>
+                        <p class="fragment">- combines HTML with Angular markup that can modify the HTML elements before they are displayed</p>
+                        <p class="fragment">- Event binding lets your app respond to user input</p>
+                        <p class="fragment">- Property binding lets you interpolate values that are computed from your application data into the HTML</p>
+                    </section>
+
+                    <section>
+                        <p>Interpolation</p>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
 import { Component } from '@angular/core';
+
 @Component({
-  selector: 'my-app',
+  selector: 'ngt-component',
   template: `
-    <h1>{{title}}</h1>
-    <h2>My favorite car is: {{myCar}}</h2>
+    <h1>{{ title }}</h1>
+    <h2>My favorite car is: {{ myCar }}</h2>
     `
 })
-export class AppComponent {
-  title = 'Cars';
-  myCar = 'Mercedes';
+export class NgtComponent {
+  protected title = 'Cars';
+  protected myCar = 'Mercedes';
 }
-                        </code>
-                    </pre>
-                </section>
+                            </code>
+                        </pre>
+                    </section>
 
-                <section>
-                    <p>Event binding - event emitters</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript ">
+                    <section>
+                        <p>Property binding</p>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
 import { Component } from '@angular/core';
+
 @Component({
-  selector: 'my-app',
+  selector: 'ngt-component',
+  template: `
+    <h2>My favorite car is 
+        &lt;span [innerHTML]="favoriteCar"&gt;&lt;/span&gt;
+    </h2>
+    `
+})
+export class NgtComponent {
+  protected favoriteCar = 'Mercedes';
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Event binding</p>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'ngt-component',
   template: `
     <button (click)="notify()">My button</button>
-    `
+  `
 })
-export class AppComponent {
+export class NgtComponent {
   
-  notify() {
+  protected notify(): void {
     console.log("The button was clicked")
   }
 }
-                        </code>
-                    </pre>
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Two way data binding (banana in the box)</p>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'ngt-component',
+    template: `
+        &lt;input [(ngModel)]="username" /&gt;
+    `
+})
+export class NgtComponent {
+  
+  protected username = 'Test';
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+                        <ul>
+                            <li>Javascript code can be used in the html using interpolation {{ ... }}</li>
+                            <li>We can bind to DOM node properties (and not only) using square brakets [value]</li>
+                            <li>Binding to DOM events (and not only) can be achieved through round brakets (click)</li>
+                            <li>Two way data binding can be achieved by combinding square and round brakets (banana in the box) [(ngModel)]</li>
+                        </ul>
+                    </section>
                 </section>
 
+                <!-- Inter-component communication -->
                 <section>
-                  <p>Services and Dependency Injection</p>
-                  <pre>
-                    <code data-trim class="hljs javascript ">
+                    <section>
+                        <p> Inter-component communication </p> <br />
+                        <p> - @Input and @Output properties </p>
+                        <p> - Using a parent component as a mediator </p>
+                        <p> - Using an injectable service as a mediator </p>
+                    </section>
+
+                    <section>
+                        <p> @Input and @Output properties </p> <br />
+                        <p> Think of a component as a black box with entry and exit doors </p>
+                        <p> Properties marked as @Input() are used for getting data from the parent component </p>
+                        <p> Properties marked as @Output() are used for sending events (and data) from a component </p>
+                    </section>
+
+                    <section>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
+@Component({
+    selector: 'ngt-parent',
+    template: `
+        &lt;ngt-child [renderInformation]="data"&gt;&lt;/ngt-child&gt;
+    `
+})
+export class ParentComponent {
+    protected data = { a: 'test', b: 'data' };
+}
+
+@Component({
+    selector: 'ngt-child',
+    template: `
+        {{ renderInformation.a + ' ' + renderInformation.b }}
+    `
+})
+export class ChildComponent {
+    @Input() renderInformation: { a: string, b: string };
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript ">
+@Component({
+    selector: 'ngt-parent',
+    template: `
+        <ngt-child (click$)="logEvent($event)"></ngt-child>
+    `
+})
+export class ParentComponent {
+    protected logEvent(event): void {
+        console.log(event); // I have been clicked
+    }
+}
+
+@Component({
+    selector: 'ngt-child',
+    template: `
+        <button (click)="click$.emit('I have been clicked')">
+            Click me
+        </button>
+    `
+})
+export class ChildComponent {
+    @Ouptut() click$ = new EventEmitter();
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>The Mediator acts as a man in the middle</p>
+                        <p>A component A sends the data to a mediator, which passes the data to a component B</p>
+                        <p>Component A and Component B don’t know about each other, the parent component can mediate siblings’ communications</p>
+                        <p>An injectable service can mediate communication between any components</p>
+                    </section>
+
+                    <section>
+                        <p>Component as a mediator</p>
+                        <img src="img/component_as_mediator.png" alt="" class="custom-image">
+                    </section>
+
+                    <section>
+                        <p>Service as a mediator</p>
+                        <img src="img/service_as_mediator.png" alt="" class="custom-image">
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+                        <ul>
+                            <li>Components receive data from their parents via @Input() properties.</li>
+                            <li>Components send data to their parents by emiting data through their @Output() properties.</li>
+                            <li>The mediator pattern helps us achieve inter-component communication through a loosely-coupled manner.</li>
+                            <li>Using injectable services is the most flexible way of inter-component communication.</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <!-- Content projection -->
+
+                <section>
+                    <section>
+                        <p>Content projection</p>
+                        <ul>
+                            <li>It is used for passing HTML elements or Angular components to a child component</li>
+                            <li>In order for the fragments to be rendered to the DOM, an &lt;ng-content&gt; tag will be used as a placeholder in the child where the actual content should be projected</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+@Component({
+    selector: 'ngt-parent',
+    template: `
+        <h2>This is from the parent component</h2>
+        <ngt-child>
+            <div>Parent projects this element into the child</div>
+            <ngt-data-component></ngt-data-component>
+        </ngt-child>
+    `
+})
+export class ParentComponent { }
+                            </code>
+                        </pre>
+
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+@Component({
+    selector: 'ngt-child',
+    template: `
+        <h2>This is from the child component</h2>
+        <ng-content></ng-content>
+    `
+})
+export class ChildComponent { }
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Multiple content projections</p>
+                        <p>The "select" attribute allows the use of multiple targeted <br /> &lt;ng-content&gt; tags </p>
+                        <p>It's an actual css selector, so any selector can be used: class, attribute, id, element</p>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+@Component({
+    selector: 'ngt-parent',
+    template: `
+        <h2>This is from the parent component</h2>
+        <ngt-child>
+            <span content-type="title">Title</span>
+            <span content-type="description">Some description</span>
+            <span content-type="generalInformation">General info</span>
+        </ngt-child>
+    `
+})
+export class ParentComponent { }
+
+
+@Component({
+    selector: 'ngt-child',
+    template: `
+        <h1>
+            <ng-content select="[content-type=title]"></ng-content>
+        </h1>
+        <div>
+            <ng-content select="[content-type=generalInformation]">
+            </ng-content>
+        </div>
+        <div>
+            <ng-content select="[content-type=description]">
+            </ng-content>
+        </div>
+    `
+})
+export class ChildComponent { }
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+                        <ul>
+                            <li>We can project content to a child component by using the &lt;ng-content&gt;</li>
+                            <li>We can have multiple content projection by adding a select attribute to the &lt;ng-content&gt;</li>
+                        </ul>
+                    </section>
+                </section>
+
+                               <section>
+                    <section>
+                        <h3>Lifecycle Hooks</h3>
+                        <a href="https://angular.io/guide/lifecycle-hooks#lifecycle-sequence" target="_blank">https://angular.io/guide/lifecycle-hooks#lifecycle-sequence</a>
+                    </section>
+
+                    <section>
+                        <p>Angular calls lifecycle hook methods on directives and components as it creates, changes, and destroys them</p>
+                    </section>
+
+                    <section>
+                        <p>
+                            Each interface has a single hook method whose name is the interface name prefixed with ng.
+                            For example, the <i>OnInit</i> interface has a hook method named <i>ngOnInit</i> that Angular calls shortly after creating the component
+                        </p>
+                        <pre class="fragment">
+                        <code data-trim class="hljs javascript">
+export class CarComponent implements OnInit {
+    // implement OnInit's `ngOnInit` method
+    ngOnInit() { 
+        console.log("On init car component"); 
+    }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>
+                            The <i>OnChanges</i> interface has a hook method named <i>ngOnChanges</i>
+                        </p>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript">
+export class CarComponent implements OnChanges {
+    ngOnChanges() { 
+        console.log("On change car component"); 
+    }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p class="fragment">Change Detection (CD)</p>
+                        <ul>
+                            <li class="fragment">CD is about updating the view whenever the underlying model changes </li>
+                            <li class="fragment">CD is implemented in the library zone.js </li>
+                            <li class="fragment">When async event happens in your browser’s app, CD starts checking components and updates the views </li>
+                            <li class="fragment">CD runs unidirectionally from the root of the component tree to each leaf </li>
+                            <li class="fragment">Each component has its own change detector that checks if the values in its template expressions (e.g. {{prodTitle}} or [prodId]="productId") has changed.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <p>CD strategies: Default vs OnPush</p>
+                        <p style="font-size: 0.7em;">changeDetection: ChangeDetectionStrategy.OnPush</p>
+                        <img style="height: 300px;" src="./img/CD_1.png" />
+                        <p style="font-size: 0.7em;">With OnPush strategy the Zone won’t check a component unless the reference of the value bound to its @Input properties change. </p>
+                    </section>
+
+                    <section>
+                        <p>CD strategies: Default vs OnPush</p>
+                        <img style="height: 300px;" src="./img/CD_2.png" />
+                        <p style="font-size: 0.7em;">A change in GrandChild1 will cause change detection in all components shown with blue background. </p>
+                    </section>
+
+                    <section>
+                        <p>We would still like to trigger CD in the OnPush component</p>
+
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript">
+@Component({
+selector: 'ngt-component',
+template: `
+    <h2>{{car.id}}</h2>
+    <h2>{{car.name}}</h2>
+`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class CarDetailsComponent {
+    protected car: { id, name };
+
+    constructior(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef
+    ) { 
+        this.loadData(7);
+    }
+
+    private loadData(id: number) {
+        this.productService.getCarById(id)
+            .subscribe(car => {
+                this.car = car; // CD won't run
+                this.cd.detectChanges(); // runs for component and all children
+            });
+    }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+
+                        <ul>
+                            <li>Angular invokes the lifecycle hooks at a given time during the component lifetime</li>
+                            <li>Fetching of the data should be placed in the ngOnInit implementation</li>
+                            <li>Change detection is performed automatically using zone.js library</li>
+                            <li>We can stop the automatic change detection to improve performance, with ChangeDetection.OnPush but it's up to us to trigger it when needed</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <!-- Directives -->
+
+                <section>
+                    <section>
+                        <p>Directives</p>
+                        <ol>
+                          <li>A class annotated with @Directive()</li>
+                          <li>Can't have it's own UI (HTML markup)</li>
+                          <li>It can be attached to an HTML element (native element or component)</li>
+                          <li>Structural directives—change the DOM layout by adding and removing DOM elements. (*ngFor, *ngIf, *ngSwitch)</li>
+                          <li>Attribute directives—change the appearance or behavior of an element, component, or another directive.(ngClass, ngStyle)</li>
+                        </ol>
+                    </section>
+
+                    <section>
+                        <p>*ngIf</p>
+                        <pre>
+                            <code data-trim class="hljs javascript">
+@Component({
+    selector: 'ngt-example',
+    template: `
+        &lt;div *ngIf="showDetails"&gt;
+            <h2>Details section</h2>
+        &lt;/div&gt;
+        <button (click)="showDetails = !showDetails">
+            Toggle details
+        </button>
+    `
+})
+export class ExampleComponent { 
+    protected showDetails = false;
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>*ngFor</p>
+                        <pre>
+                            <code data-trim class="hljs javascript">
+@Component({
+    selector: 'ngt-example',
+    template: `
+        <ul>
+            &lt;li *ngFor="let product of products; let i = index;"&gt;
+                {{ product.name }}, index: {{ i }}
+            &lt;/li&gt;
+        </ul>
+    `
+})
+export class ExampleComponent { 
+    protected products = [ 
+        { name: 'product1' }, 
+        { name: 'product2' }, 
+        { name: 'product3' } 
+    ];
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>*ngSwitch</p>
+                        <pre>
+                            <code data-trim class="hljs javascript">
+@Component({
+    selector: 'ngt-example',
+    template: `
+        &lt;div [ngSwitch]="country"&gt;
+            &lt;div *ngSwitchCase="'DE'"&gt; ... &lt;/div&gt;
+            &lt;div *ngSwitchCase="'SE'"&gt; ... &lt;/div&gt;
+            &lt;div *ngSwitchCase="'FI'"&gt; ... &lt;/div&gt;
+        &lt;/div&gt;
+    `
+})
+export class ExampleComponent { 
+    @Input() country = null;
+}
+                            </code>
+                        </pre>
+                    </section>
+  
+                    <section>
+                      <p>Description of an attribute directive</p>
+  <pre>
+    <code data-trim class="hljs javascript">
+import { Directive, ElementRef, HostListener, Input  } from '@angular/core';
+
+@Directive({
+  selector: '[appHighlight]'
+})
+export class HighlightDirective {
+    @Input() highlightColor: string = 'white';
+
+    constructor(private el: ElementRef) { }
+
+    @HostBinding('class.red') red = true;
+
+    @HostListener('mouseenter') onMouseEnter() {
+        this.highlight(highlightColor);
+    }
+
+    @HostListener('mouseleave') onMouseLeave() {
+        this.highlight(null);
+    }
+
+    private highlight(color: string) {
+        this.el.nativeElement.style.backgroundColor = color;
+    }
+}</code>
+  </pre>
+                    </section>
+                    <section>
+                        <p>Usage of an attribute directive</p>
+                        <pre>
+                            <code data-trim class="hljs javascript">                    
+&lt;p appHighlight [highlightColor]="blue"&gt;Highlight me!&lt;/p&gt;
+
+&lt;ngt-component appHighlight [highlightColor]="blue"&gt;
+    Highlight me!
+&lt;/ngt-component&gt;
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+
+                        <ul>
+                            <li>Directives can be attached to and HTML tag or a component to enchance the functionality/appearance</li> <br />
+                            <li>We have two kind of directives: 
+                                <ul>
+                                    <li>structural directives (*ngIf, *ngFor, *ngSwitch)</li>
+                                    <li>attribute directives (ngClass, ngStyle)</li>
+                                </ul> 
+                            </li>
+                        </ul>
+                    </section>
+                  </section>
+
+                <!-- Pipes -->
+
+                <section>
+                    <section>
+                        <p>Pipes</p>
+                        <p>They are functions that help us process data in the template (HTML)</p>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript">
+import { Pipe, PipeTransform } from '@angular/core';
+
+/*
+  * Returns '-'' if the data is null or undefined
+  * Usage:
+  *   value | emptyValue
+  * Example:
+  *   {{ undefined | emptyValue }}
+  *   formats value to: '-'
+*/
+@Pipe({ name: 'emptyValue' })
+export class EmptyValueFormatterPipe implements PipeTransform {
+  transform(value: any): string {
+    if (value != null && !value.isUndefined && value !== 'null') {
+      return value;
+    } else {
+      return '-';
+    }
+  }
+}                    
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript">
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'ngt-example',
+    template: `
+        <h2> {{ username | emptyValue }} </h2>
+    `  
+})  
+export class ExampleComponent {
+    protected username = null;
+}                
+                            </code>
+                        </pre>
+                    </section>
+                </section>
+            
+                <!-- Services and dependency injection -->
+                
+                <section>
+                    <section>
+                        <p>Services and Dependency Injection</p>
+                        <ul>
+                            <li>Don’t instantiate classes with the new operator</li>
+                            <li>Angular creates and injects services into components, directives or other services</li>
+                            <li>Angular can create and inject values into variables</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <ul>
+                            <li>We can inject services into components, directives or services using the constructor</li>
+                            <li>In order to inject a service / value, angular needs to have that defined in the providers section in a module/component</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+@NgModule({
+    providers: [{ 
+        provide: ListApiService,
+        useClass: ListApiService
+    }]
+})
+class AppModule { }
+
+// short hand
+@NgModule({
+    providers: [ListApiService]
+})
+class AppModule { }
+                            </code>
+                        </pre>
+
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+@NgModule({
+    providers: [{ 
+        provide: ListApiService,
+        useClass: MockedApiService
+    }]
+})
+class AppModule { }
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
 import { Injectable } from '@angular/core';
 
+// @Injectable(provideIn: 'root')
 @Injectable()
-export class MyService {
+export class ListApiService { 
+    ...
 }
-                        </code>
-                    </pre>                  
+                            </code>
+                        </pre> 
+    
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'ngt-component',
+  template: ``
+})
+export class AppComponent {
+    constructor(private listApiService: ListApiService) { }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>@Inject() decorator</p>
+                        <p>Allows us to specify the token type</p>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+import { Component, Inject } from '@angular/core';
+
+@Component({
+  selector: 'ngt-component',
+  template: ``
+})
+export class AppComponent {
+    constructor(@Inject(ListApiService) private listApiService) { }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+import { Component, Inject, InjectionToken } from '@angular/core';
+
+export const BACKEND_URI = new InjectionToken('BackendUri');   
+
+@Component({
+  selector: 'ngt-component',
+  template: ``,
+  providers: [{ provide: BACKEND_URI, useValue: 'qa-server.com' }]
+})
+export class AppComponent {
+    constructor(@Inject(BACKEND_URI) private uri) { }
+}
+                            </code>
+                        </pre>
+                    </section>
+                </section>
+
+                <!-- The big picture -->
+
+                <section>
+                    <p>The big picture</p>
+                    <img src="https://angular.io/generated/images/guide/architecture/overview2.png" alt="" class="custom-image">
                 </section>
 
                 <section>
@@ -145,8 +1436,41 @@ export class MyService {
                     <p>- service that lets you define a navigation path among the different application states and view hierarchies in your app</p>
                     <p>- lazy-loading</p>
                     <p>- guards, resolvers</p>
-                  </section>     
-                  
+                </section>     
+                
+                <section>
+                    <section>
+                        <p>The Elvis operator ?</p>
+                        <ul>
+                            <li>It can be used in the HTMl when trying to access properties on a given object</li>
+                            <li>It simply performs sanity checks</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'ngt-component',
+  template: `
+    <span>{{ user.address }}</span> // will display nothing
+    <span>{{ user?.address }}</span> // will display nothing
+    <span>{{ user.address.streetName }}</span> // will break horribly
+    <span>{{ user?.address?<div class="postalCode"></div> }}</span> // will display nothing
+  `
+})
+export class AppComponent {
+    protected user = {
+        name: 'Test',
+        address: null
+    }
+}
+                            </code>
+                        </pre>
+                    </section>
+                </section>
 
                 <section>
                     <p>Display an array property with *ngFor</p>
@@ -347,31 +1671,9 @@ export class CarAppComponent {
                 </section>
 
                 <section>
-                    <p>Template Inline Styles</p>
-                    <pre class="fragment">
-                    <code data-trim class="hljs javascript">
-@Component({
-  selector: 'product-controls',
-  template: `
-    <style>
-        button {
-            background-color: white;
-            border: 1px solid black;
-        }
-    </style>
-    <h3>Products</h3>
-    <button (click)="selectFavorite()">Select favorite</button>
-  `
-})
-
-                        </code>
-                    </pre>
-                </section>
-
-                <section>
                     <p>Style URLs in Metadata</p>
                     <pre class="fragment">
-                    <code data-trim class="hljs javascript">
+                        <code data-trim class="hljs javascript">
 @Component({
   selector: 'car-details',
   template: `
@@ -388,147 +1690,53 @@ export class CarDetailsComponent {
                 </section>
 
                 <section>
-                  <section>
-                      <p>Directives</p>
-                      <ol>
-                        <li>Components—directives with a template.</li>
-                        <li>Structural directives—change the DOM layout by adding and removing DOM elements. (NgFor, NgIf)</li>
-                        <li>Attribute directives—change the appearance or behavior of an element, component, or another directive.(NgClass, NgStyle)</li>
-                      </ol>
-                  </section>
+                    <section>
+                        <p>Testing</p>
+                    </section>
 
-                  <section>
-                    <p>Description of a attribute directive</p>
-<pre>
-    <code data-trim class="hljs javascript">
-import { Directive, ElementRef, HostListener, Input  } from '@angular/core';
-// ElementRef - reference to the host DOM element
+                    <section>
+                        <p>Unit tests</p><br />
+                        <p>In order to write the actual tests we use Jasmin together with Angular Testing Module (@angular/core/testing)</p>
+                        <p>In order to run the tests we use the test runner Karma</p>
+                    </section>
 
+                    <section>
+                        <p>Jasmine terminology</p>
+                        <p>A test is written in the function it()</p>
+                        <p>A test suite is written in describe()</p>
 
-@Directive({
-  selector: '[appHighlight]'
-})
-export class HighlightDirective {
-  @Input() highlightColor: string;
+                        <pre>
+                            <code data-trim class="hljs javascript">
+import AppComponent from ‘./app.component';
 
-  constructor() { 
-    constructor(el: ElementRef) {
-      //el.nativeElement.style.backgroundColor = 'yellow';
-   }
+describe('AppComponent', () => {
+    it('is successfully instantiated', () => {
+        const app = new AppComponent();
+        expect(app instanceof AppComponent).toEqual(true);
+    });
+});
+                            </code>
+                        </pre>
+                    </section>
 
-   @HostListener('mouseenter') onMouseEnter() {
-      this.highlight('yellow');
-    }
+                    <section>
+                        <p>Jasmine matchers</p>
+                        <img src="./img//jasmine_matchers.png" />
+                    </section>
 
-    @HostListener('mouseleave') onMouseLeave() {
-      this.highlight(null);
-    }
+                    <section>
+                        <p>Setup and teardown</p>
 
-    private highlight(color: string) {
-      this.el.nativeElement.style.backgroundColor = color;
-    }
-  }
-}</code>
-</pre>
-                  </section>
-                  <section>
-                    <p>Usage of an attribute directive</p>
-<pre>
-    <code data-trim class="hljs javascript">                    
-<p appHighlight>Highlight me!</p>
-</code>
-</pre>
-                  </section>
-                </section>
+                        <p> Setup. Include the functions beforeAll() and beforeEach()
+                            in your spec file with the code to execute before all or each spec.</p>
+                        <p>Teardown. Include the functions afterAll() and afterEach() 
+                            with the code to execute after all or each spec.</p>
+                    </section>
 
-                <section>
-                  <p>Pipes</p>
-<pre>
-  <code data-trim class="hljs javascript">
-import { Pipe, PipeTransform } from '@angular/core';
-/*
-  * Raise the value exponentially
-  * Takes an exponent argument that defaults to 1.
-  * Usage:
-  *   value | exponentialStrength:exponent
-  * Example:
-  *   {{ 2 | exponentialStrength:10 }}
-  *   formats to: 1024
-*/
-@Pipe({name: 'exponentialStrength'})
-export class ExponentialStrengthPipe implements PipeTransform {
-  transform(value: number, exponent: string): number {
-    let exp = parseFloat(exponent);
-    return Math.pow(value, isNaN(exp) ? 1 : exp);
-  }
-}                      
-  </code>
-</pre>
-                </section>
-
-                <section>
-                    <h3>Lifecycle Hooks</h3>
-                    <a href="https://angular.io/guide/lifecycle-hooks#lifecycle-sequence">https://angular.io/guide/lifecycle-hooks#lifecycle-sequence</a>
-                </section>
-
-                <section>
-                    <p>Angular calls lifecycle hook methods on directives and components as it creates, changes, and destroys them</p>
-                </section>
-
-                <section>
-                    <p>
-                        Each interface has a single hook method whose name is the interface name prefixed with ng.
-                        For example, the <i>OnInit</i> interface has a hook method named <i>ngOnInit</i> that Angular calls shortly after creating the component
-                    </p>
-                    <pre class="fragment">
-                    <code data-trim class="hljs javascript">
-export class CarComponent implements OnInit {
-    // implement OnInit's `ngOnInit` method
-    ngOnInit() { 
-        console.log("On init car component"); 
-    }
-}
-                        </code>
-                    </pre>
-                </section>
-
-                <section>
-                    <p>
-                        The <i>OnChanges</i> interface has a hook method named <i>ngOnChanges</i>
-                    </p>
-                    <pre class="fragment">
-                    <code data-trim class="hljs javascript">
-export class CarComponent implements OnChanges {
-    ngOnChanges() { 
-        console.log("On change car component"); 
-    }
-}
-                        </code>
-                    </pre>
-                </section>
-
-                <section>
-                    <p class="fragment">Change Detection (CD)</p>
-                    <ul>
-                        <li class="fragment">CD is about updating the view whenever the underlying model changes </li>
-                        <li class="fragment">CD is implemented in the library zone.js </li>
-                        <li class="fragment">When async event happens in your browser’s app, CD starts checking components and updates the views </li>
-                        <li class="fragment">CD runs unidirectionally from the root of the component tree to each leaf </li>
-                        <li class="fragment">Each component has its own change detector that checks if the values in its template expressions (e.g. {{prodTitle}} or [prodId]="productId") has changed.</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <p>CD strategies: Default vs OnPush</p>
-                    <p style="font-size: 0.7em;">changeDetection: ChangeDetectionStrategy.OnPush</p>
-                    <img style="height: 300px;" src="./img/CD_1.png" />
-                    <p style="font-size: 0.7em;">With OnPush strategy the Zone won’t check a component unless the reference of the value bound to its @Input properties change. </p>
-                </section>
-
-                <section>
-                    <p>CD strategies: Default vs OnPush</p>
-                    <img style="height: 300px;" src="./img/CD_2.png" />
-                    <p style="font-size: 0.7em;">A change in GrandChild1 will cause change detection in all components shown with blue background. </p>
+                    <section>
+                        <p>Adding coverage to the test</p> <br />
+                        <p>ng test --code-coverage</p>
+                    </section>
                 </section>
 </div>
         </div>
