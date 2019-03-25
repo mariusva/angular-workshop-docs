@@ -121,7 +121,7 @@
                     <section>
                         <p>The Angular CLI helps us with:</p>
                         <ul>
-                            <li>Scaffolding a new project that will sever as the base for our application</li>
+                            <li>Scaffolding a new project that will serve as the base for our application</li>
                             <li>Scaffolding components, directives, pipes, modules, etc.</li>
                             <li>Has a built in development server to run our application</li>
                             <li>Creates development and production builds</li>
@@ -646,12 +646,12 @@ workers.forEach(function (worker) { return worker.increasePay(30); });
                     <p>Clone traning application</p>
                     <pre>
                         <code data-trim class="hljs javascript">
-git clone https://github.com/mariusva/angular-workshop
-cd angular-workshop
+git clone https://github.com/groszwilhelm/angular_workshop.git
+cd angular_workshop
 git fetch
 git checkout step1
-npm install
-ng serve -o
+npm i
+npm start
                         </code>
                     </pre>
                 </section>
@@ -701,13 +701,6 @@ export class NgtComponent {
 }
     </code>
 </pre>
-                    </section>
-
-                    <section>
-                        <p>Templates, directives, and data binding</p>
-                        <p class="fragment">- combines HTML with Angular markup that can modify the HTML elements before they are displayed</p>
-                        <p class="fragment">- Event binding lets your app respond to user input</p>
-                        <p class="fragment">- Property binding lets you interpolate values that are computed from your application data into the HTML</p>
                     </section>
 
                     <section>
@@ -795,6 +788,19 @@ export class NgtComponent {
                     </section>
 
                     <section>
+                        <p>Assignment</p>
+                        <ul>
+                            <li>Create a product property on the AppComponent and assign it the product</li>
+                            <li>Create a product interface</li>
+                            <li>Show the product title in the html</li>
+                            <li>Show the product description in the html</li>
+                            <li>Show the number of likes of a product</li>
+                            <li>Show the number of comments of a product</li>
+                            <li>Add src to the image tag</li>
+                        </ul>
+                    </section>
+
+                    <section>
                         <p>Recap</p>
                         <ul>
                             <li>Javascript code can be used in the html using interpolation {{ ... }}</li>
@@ -811,7 +817,6 @@ export class NgtComponent {
                         <p> Inter-component communication </p> <br />
                         <p> - @Input and @Output properties </p>
                         <p> - Using a parent component as a mediator </p>
-                        <p> - Using an injectable service as a mediator </p>
                     </section>
 
                     <section>
@@ -871,7 +876,7 @@ export class ParentComponent {
     `
 })
 export class ChildComponent {
-    @Ouptut() click$ = new EventEmitter();
+    @Output() click$ = new EventEmitter();
 }
                             </code>
                         </pre>
@@ -890,8 +895,14 @@ export class ChildComponent {
                     </section>
 
                     <section>
-                        <p>Service as a mediator</p>
-                        <img src="img/service_as_mediator.png" alt="" class="custom-image">
+                        <p>Assignment</p>
+                        <ul>
+                            <li>Create a product component</li>
+                            <li>Move the product card from the app.component.html to the newly created ProductComponent (html)  </li>
+                            <li>Pass in the product from the AppComponent to the ProcuctComponent using @Input</li>
+                            <li>Create an @Output from the ProductComponent that is triggered when the button is clicked</li>
+                            <li>Create a ProductListComponent and move the interaction with the ProductComponent into it</li>
+                        </ul>
                     </section>
 
                     <section>
@@ -992,123 +1003,18 @@ export class ChildComponent { }
                     </section>
 
                     <section>
+                        <p>Assignment</p>
+                        <ul>
+                            <li>Pass in the product title to the ProductComponent using content projection</li>
+                            <li>Pass in the product description to the ProductComponent using content projection</li>
+                        </ul>
+                    </section>
+
+                    <section>
                         <p>Recap</p>
                         <ul>
                             <li>We can project content to a child component by using the &lt;ng-content&gt;</li>
                             <li>We can have multiple content projection by adding a select attribute to the &lt;ng-content&gt;</li>
-                        </ul>
-                    </section>
-                </section>
-
-                               <section>
-                    <section>
-                        <h3>Lifecycle Hooks</h3>
-                        <a href="https://angular.io/guide/lifecycle-hooks#lifecycle-sequence" target="_blank">https://angular.io/guide/lifecycle-hooks#lifecycle-sequence</a>
-                    </section>
-
-                    <section>
-                        <p>Angular calls lifecycle hook methods on directives and components as it creates, changes, and destroys them</p>
-                    </section>
-
-                    <section>
-                        <p>
-                            Each interface has a single hook method whose name is the interface name prefixed with ng.
-                            For example, the <i>OnInit</i> interface has a hook method named <i>ngOnInit</i> that Angular calls shortly after creating the component
-                        </p>
-                        <pre class="fragment">
-                        <code data-trim class="hljs javascript">
-export class CarComponent implements OnInit {
-    // implement OnInit's `ngOnInit` method
-    ngOnInit() { 
-        console.log("On init car component"); 
-    }
-}
-                            </code>
-                        </pre>
-                    </section>
-
-                    <section>
-                        <p>
-                            The <i>OnChanges</i> interface has a hook method named <i>ngOnChanges</i>
-                        </p>
-                        <pre class="fragment">
-                            <code data-trim class="hljs javascript">
-export class CarComponent implements OnChanges {
-    ngOnChanges() { 
-        console.log("On change car component"); 
-    }
-}
-                            </code>
-                        </pre>
-                    </section>
-
-                    <section>
-                        <p class="fragment">Change Detection (CD)</p>
-                        <ul>
-                            <li class="fragment">CD is about updating the view whenever the underlying model changes </li>
-                            <li class="fragment">CD is implemented in the library zone.js </li>
-                            <li class="fragment">When async event happens in your browser’s app, CD starts checking components and updates the views </li>
-                            <li class="fragment">CD runs unidirectionally from the root of the component tree to each leaf </li>
-                            <li class="fragment">Each component has its own change detector that checks if the values in its template expressions (e.g. {{prodTitle}} or [prodId]="productId") has changed.</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <p>CD strategies: Default vs OnPush</p>
-                        <p style="font-size: 0.7em;">changeDetection: ChangeDetectionStrategy.OnPush</p>
-                        <img style="height: 300px;" src="./img/CD_1.png" />
-                        <p style="font-size: 0.7em;">With OnPush strategy the Zone won’t check a component unless the reference of the value bound to its @Input properties change. </p>
-                    </section>
-
-                    <section>
-                        <p>CD strategies: Default vs OnPush</p>
-                        <img style="height: 300px;" src="./img/CD_2.png" />
-                        <p style="font-size: 0.7em;">A change in GrandChild1 will cause change detection in all components shown with blue background. </p>
-                    </section>
-
-                    <section>
-                        <p>We would still like to trigger CD in the OnPush component</p>
-
-                        <pre class="fragment">
-                            <code data-trim class="hljs javascript">
-@Component({
-selector: 'ngt-component',
-template: `
-    <h2>{{car.id}}</h2>
-    <h2>{{car.name}}</h2>
-`,
-    changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class CarDetailsComponent {
-    protected car: { id, name };
-
-    constructior(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) { 
-        this.loadData(7);
-    }
-
-    private loadData(id: number) {
-        this.productService.getCarById(id)
-            .subscribe(car => {
-                this.car = car; // CD won't run
-                this.cd.detectChanges(); // runs for component and all children
-            });
-    }
-}
-                            </code>
-                        </pre>
-                    </section>
-
-                    <section>
-                        <p>Recap</p>
-
-                        <ul>
-                            <li>Angular invokes the lifecycle hooks at a given time during the component lifetime</li>
-                            <li>Fetching of the data should be placed in the ngOnInit implementation</li>
-                            <li>Change detection is performed automatically using zone.js library</li>
-                            <li>We can stop the automatic change detection to improve performance, with ChangeDetection.OnPush but it's up to us to trigger it when needed</li>
                         </ul>
                     </section>
                 </section>
@@ -1239,6 +1145,17 @@ export class HighlightDirective {
                     </section>
 
                     <section>
+                        <p>Assignment</p>
+                        <ul>
+                            <li>Add a products property on the ProductListComponent and assign it the products array from the product-list.ts</li>
+                            <li>Specify a type for the products property</li>
+                            <li>Use *ngFor to display the full list of products</li>
+                            <li>Create a ZoomDirective that will make the image grow when hovered</li>
+                            <li>Create a FilterComponent that filters the product list based on the type property on the product</li>
+                        </ul>
+                    </section>
+
+                    <section>
                         <p>Recap</p>
 
                         <ul>
@@ -1304,6 +1221,13 @@ export class ExampleComponent {
 }                
                             </code>
                         </pre>
+                    </section>
+
+                    <section>
+                        <p>Assignment</p>
+                        <ul>
+                            <li>Create a CurrencyPipe that adds a currency after the price of the product </li>
+                        </ul>
                     </section>
                 </section>
             
@@ -1422,6 +1346,211 @@ export class AppComponent {
                             </code>
                         </pre>
                     </section>
+
+                    <section>
+                        <h4>Mediator pattern</h4>
+                        <p>Service as a mediator</p>
+                        <img src="img/service_as_mediator.png" alt="" class="custom-image">
+                    </section>
+
+                    <section>
+                        <p>Assignment</p>
+                        <ul>
+                            <li>Create a ListService </li>
+                            <li>Move the product list into the service</li>
+                            <li>Fetch the product list from the ListService</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Lifecycle Hooks</h3>
+                        <a href="https://angular.io/guide/lifecycle-hooks#lifecycle-sequence" target="_blank">https://angular.io/guide/lifecycle-hooks#lifecycle-sequence</a>
+                    </section>
+
+                    <section>
+                       <ul>
+                        <li>Component gets created and initialized</li>
+                        <li>Change-detection mechanism starts monitoring the component</li>
+                        <li>You can intercept component lifecycle’s key moments by implementing lifecycle hook interfaces</li>
+                        <li>Angular calls the hooks only if you implemented them</li>
+                        <li>Component gets destroyed</li>
+                       </ul>
+                    </section>
+
+                    <section>
+                        <img src="./img/lifecycle.png" />
+                    </section>
+
+                    <section>
+                        <p>
+                            Each interface has a single hook method whose name is the interface name prefixed with ng.
+                            For example, the <i>OnInit</i> interface has a hook method named <i>ngOnInit</i> that Angular calls shortly after creating the component
+                        </p>
+                        <pre class="fragment">
+                        <code data-trim class="hljs javascript">
+export class CarComponent implements OnInit {
+    // implement OnInit's `ngOnInit` method
+    ngOnInit() { 
+        console.log("On init car component"); 
+    }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p class="fragment">Change Detection (CD)</p>
+                        <ul>
+                            <li class="fragment">CD is about updating the view whenever the underlying model changes </li>
+                            <li class="fragment">CD is implemented in the library zone.js </li>
+                            <li class="fragment">When async event happens in your browser’s app, CD starts checking components and updates the views </li>
+                            <li class="fragment">CD runs unidirectionally from the root of the component tree to each leaf </li>
+                            <li class="fragment">Each component has its own change detector that checks if the values in its template expressions (e.g. {{prodTitle}} or [prodId]="productId") has changed.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <p>CD strategies: Default vs OnPush</p>
+                        <p style="font-size: 0.7em;">changeDetection: ChangeDetectionStrategy.OnPush</p>
+                        <img style="height: 300px;" src="./img/CD_1.png" />
+                        <p style="font-size: 0.7em;">With OnPush strategy the Zone won’t check a component unless the reference of the value bound to its @Input properties change. </p>
+                    </section>
+
+                    <section>
+                        <p>CD strategies: Default vs OnPush</p>
+                        <img style="height: 300px;" src="./img/CD_2.png" />
+                        <p style="font-size: 0.7em;">A change in GrandChild1 will cause change detection in all components shown with blue background. </p>
+                    </section>
+
+                    <section>
+                        <p>We would still like to trigger CD in the OnPush component</p>
+
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript">
+@Component({
+selector: 'ngt-component',
+template: `
+    <h2>{{car.id}}</h2>
+    <h2>{{car.name}}</h2>
+`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class CarDetailsComponent {
+    protected car: { id, name };
+
+    constructior(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef
+    ) { 
+        this.loadData(7);
+    }
+
+    private loadData(id: number) {
+        this.productService.getCarById(id)
+            .subscribe(car => {
+                this.car = car; // CD won't run
+                this.cd.detectChanges(); // runs for component and all children
+            });
+    }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h4>Mutable vs Immutable JavaScript primitives are immutable</h4>
+                        <pre class="fragment">
+                            <code data-trim class="hljs javascript">
+// Allocates an address in memory for greeting 
+let greeting = 'Hello';
+// Allocates another address in memory
+greeting = 'Hello Mary'; 
+
+// Allocates an address for the var user 
+let user = {name: 'John'}; 
+// The address of the var user remains the same 
+user.name = 'Mary'
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <p>Recap</p>
+
+                        <ul>
+                            <li>Angular invokes the lifecycle hooks at a given time during the component lifetime</li>
+                            <li>Fetching of the data should be placed in the ngOnInit implementation</li>
+                            <li>Change detection is performed automatically using zone.js library</li>
+                            <li>We can stop the automatic change detection to improve performance, with ChangeDetection.OnPush but it's up to us to trigger it when needed</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h4>Observables</h4>
+                        <p>Stream of events you can process with array like operators</p>
+                        <p>Streams: series of values in time</p>
+                    </section>
+
+                    <section>
+                        <li>Observable - data stream that pushes data over time </li>
+                        <li>Observer - consumer of an observable stream </li>
+                        <li>Subscriber - connects observer with observable </li>
+                        <li>Operator - en-route data transformation</li>
+                    </section>
+
+                    <section>
+                        <img src="./img/stream.png" />
+                    </section>
+
+                    <section>
+                        <h4>The Observer can provide</h4>
+                        <li>A function to handle the next value from the stream </li>
+                        <li>A function to handle errors</li>
+                        <li>A function to handle end-of-stream</li>
+                    </section>
+
+                    <section>
+                        <h4>Creating Observables</h4>
+                        <pre>
+                            <code class="hljs javascript">
+from([1, 2, 3]) // converts an array or iterable into an Observable
+of(1, 2, 3) // turns a sequence of values into an Observable
+fromEvent(inputElement, 'keyup') // converts an event into an Observable
+interval(1000) // emits an integer every second
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h4>Marble Diagrams</h4>
+                    </section>
+                    
+                    <section>
+                        <h4>Map</h4>
+                        <img src="./img/map.png" />
+                    </section>
+                    
+                    <section>
+                        <h4>Filter</h4>
+                        <img src="./img/filter.png" />
+                    </section>
+                    
+                    <section>
+                        <h4>Debounce Time</h4>
+                        <img src="./img/debounceTime.png" />
+                    </section>
+
+                    <section>
+                        <img src="./img/rxjs.png" />
+                    </section>
+
+                    <section>
+                        <h4>Hands On</h4>
+                    </section>
                 </section>
 
                 <!-- The big picture -->
@@ -1431,264 +1560,573 @@ export class AppComponent {
                     <img src="https://angular.io/generated/images/guide/architecture/overview2.png" alt="" class="custom-image">
                 </section>
 
-                <section>
-                    <p>Routing</p>
-                    <p>- service that lets you define a navigation path among the different application states and view hierarchies in your app</p>
-                    <p>- lazy-loading</p>
-                    <p>- guards, resolvers</p>
-                </section>     
-                
+                <!-- Ng modules -->
                 <section>
                     <section>
-                        <p>The Elvis operator ?</p>
+                        <p>Modules / Refactoring the app</p>
+                    </section>
+
+                    <section>
+                        <p class="fragment">A mechanism to group components, directives, pipes and services that are related</p>
+                        <p class="fragment">Similar to ES6 Modules ( <i>declarations, imports, exports</i> )</p>
+                        <div class="fragment">
+                        <pre>
+                            <code class="hljs javascript">
+import { NgModule } from '@angular/core';
+...
+
+@NgModule({ //decorator
+  imports: [BrowserModule],
+  declarations: [AppComponent],
+  exports: [...],
+  providers: [...],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+                            </code>
+                        </pre>    
+                    </section>
+
+                    <section>
+                        <h4>Imports</h4>
                         <ul>
-                            <li>It can be used in the HTMl when trying to access properties on a given object</li>
-                            <li>It simply performs sanity checks</li>
+                            <li class="fragment">Expects an array of modules - only <b style="color: green">NgModules</b></li>
+                            <li class="fragment">NgModules don't inherit access to the declaration of other NgModule - it must import what it needs</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Declarations</h4>
+                        <ul>
+                            <li class="fragment"><b style="color: green"> Components / Directives / Pipes </b> belonging to the NgModule - only Declarables </li>
+                            <li class="fragment">Declarables are only visible in the module that they are declared in!</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Exports</h4>
+                        <ul>
+                            <li class="fragment">All declarables are private by default</li>
+                            <li class="fragment">We can export <b style="color: green">declarables</b> in order to use them in other modules as well </li>
+                            <li class="fragment">We can export also <b style="color: green">imported modules!</b></li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Providers</h4>
+                        <ul>
+                            <li class="fragment"><b style="color: green">Services</b> declared here will be visible app-wide( scoped using lazy-loading)</li>
+                            <li class="fragment">When there are multiple providers for the same injection token, the last registration wins. </li>
+                            <li class="fragment">root-scoped / module-scoped -
+                                <i>Component providers always supersede NgModule providers</i>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Bootstrap</h4>
+                        <ul>
+                            <li class="fragment">The component(s) to bootstrap </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>entryComponents</h4>
+                        <ul>
+                            <li class="fragment">Components that cannot be reached by compiler </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>AppModule / Application root module</h4>
+                        <ul>
+                            <li class="fragment">Contains the component for bootstrap - launch the app</li>
+                            <li class="fragment">Dynamic bootstraping - JIT Compiler</li>
+                            <li class="fragment">Static bootstraping - AOT Compiler</li>
+                        </ul>
+                    </section>
+    
+                    <section>
+                        <h4>Feature modules</h4>
+                        <ul>
+                            <li class="fragment">Same properties and metadata as the Root Module</li>
+                            <li class="fragment">Share the same execution context, same injector as Root Module - services available to all</li>
+                            <li class="fragment">Extends the app</li>
+                            <li class="fragment">Can expose or hide its implementations from other modules</li>
+                            <ul>
+                    </section>
+    
+                    <section>
+                        <h4>Shared Module</h4>
+                        <ul>
+                            <li class="fragment">Exists to make commonly used components, directives, and pipes available for use in many other modules</li>
+                            <li class="fragment">Don't specify providers here!</li>
+                            <li class="fragment">Can export modules without using their functionalities</li>
+                            <ul>
+                    </section>
+    
+                    <section>
+                        <h4>Core Module</h4>
+                        <ul>
+                            <li class="fragment">Pure service module with no declarations</li>
+                            <li class="fragment">Specify the Core items that will be used in all modules (eg: a UserApiService)</li>
+                            <li class="fragment">Imported once when the app starts and never imported anywhere else</li>
+                            <ul>
+                    </section>
+
+                    <section>
+                        <h4>Check the application source code</h4>
+                        <p>What modules should we create, and how to resturcture the project?</p>
+                    </section>
+
+                    <section>
+                        <h4>Assignment</h4>
+                        <ul>
+                            <li>Move the directives, pipes into a SharedModule that will be imported in the AppModule</li>
+                            <li>Create a CoreModule and provide the ProductService there, import CoreModule inside the AppModule</li>
+                            <li>Move the ProductComponent and TagFilterComponent into the product-list directory</li>
+                            <li>Move the product.model into the product directory</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Recap</h4>
+                        <ul>
+                            <li>RootModule (AppModule) contains the root module for our application together with the component that will be bootstrapped initially</li>
+                            <li>FeatureModules represent all the application sub modules, it's up to us to define them and structure our application with them</li>
+                            <li>CoreModule contains only singleton services, and will be imported into the RootModule</li>
+                            <li>SharedModule contains reusable components/directives/pipes and modules that it exports in order to provide FeatureModules with the componenents/modules that they depend on</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <!-- Http -->
+                <section>
+                    <h4>Http</h4>
+                </section>
+
+                <!-- Routing -->
+                <section>
+                    <section>
+                        <p>Routing</p>
+                    </section>
+
+                    <section>
+                        <h4>Single-Page applications (SPA)</h4>
+                        <p>SPA don’t refresh the entire page to display different views</p>
+                        <p>SPA is a collection of view states: Home, Product Detail, Transaction history.</p>
+                        <p>The router allows the user to navigate between views inside a SPA</p>
+                    </section>
+
+                    <section>
+                        <img height="600px" src="./img//router-outlet.png" />
+                    </section>
+
+                    <section>
+                        <h4>Route configuration</h4>
+                    </section>
+
+                    <section>
+                        <pre>
+                                <code class="hljs javascript">
+    import { Router } from '@angular/router';
+    import { ProductListComponent } from './product';
+    import { ProductDetailComponent } from './product/details';
+
+    const routes: Routes = [
+      {
+        path: 'products',
+        component: ProductListComponent
+      },
+      {
+        path: 'products/:id',
+        component: ProductDetailComponent
+      }
+    ];
+    
+    @NgModule({ 
+      exports: [RouterModule.forRoot(routes)],
+    })
+    export class AppRoutingModule { }
+                            </code>
+                        </pre>  
+                    </section>
+
+                    <section>
+                        <h4>Navigating between routes</h4>
+                    </section>
+
+                    <section>
+                        <h4>Navigation with routerLink directive</h4>
+                        <pre>
+                            <code class="hljs javascript">
+    import { Component } from '@angular/core';
+    
+    @Component({ 
+      selector: 'wsh-component',
+      template: `
+        <a [routerLink]="['/products']" routerLinkActive="class-when-route-is-active">Product List</a>
+        <a [routerLink]="['/product', productId]" routerLinkActive="class-when-route-is-active">Details</a>
+      `
+    })
+    export class AppComponent {
+        protected productId = 2;
+    }
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h4>Programatic navigation</h4>
+                        <pre>
+                            <code class="hljs javascript">
+    import { Component } from '@angular/core';
+    import { Router } from '@angular/router';
+    
+    @Component({ 
+      selector: 'wsh-component',
+      template: `
+        <a (click)="navigateToProductList()">Product List</a>
+        <a (click)="navigateToProduct(productId)">Details</a>
+      `
+    })
+    export class AppComponent {
+        protected productId = 2;
+
+        constructior(private router: Router) {}
+
+        protected navigateToProductList() {
+            this.router.navigate(['/products'])
+        }
+
+        protected navigateToProduct(productId) {
+            this.router.navigate(['/product', productId])
+        }
+    }
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h4>Retrieving params in a route</h4>
+                        <pre>
+                            <code class="hljs javascript">
+    import { Component, OnInit } from '@angular/core';
+    import { ActivatedRoute } from '@angular/router';
+    
+    @Component({ 
+      selector: 'wsh-product-details',
+      template: `
+        {{ productId }}
+      `
+    })
+    export class AppComponent implements OnInit{
+        protected productId = null;
+
+        constructior(private route: ActivatedRoute) {}
+
+        ngOnInit() {
+            this.productId = this.route.snapshot.paramMap.get('id');
+        }
+    }
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h4>Assignment</h4>
+                        <ul>
+                            <li>Create an AppRoutingModule</li>
+                            <li>Add the router-outlet component in the app.component.html</li>
+                            <li>Add two routes: products, products/:id (product list, product details)</li>
+                            <li>Add routerLink to the "home" button inside the navigation - it should route to the product list</li>
+                            <li>Add routerLink to the "more details" button inside the product, it should route to a product detail page</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Lazy loaded modules</h4>
+
+                        <ul>
+                            <li>The app startup time is shorter</li>
+                            <li>Splitting the app into modules allows creating reusable chunks of code, e.g. ShippingModule</li>
+                            <li>During bundling, the lazily loaded module is placed in a separate bundle</li>
+                            <li>The code is loaded only when the user navigates to the module</li>
                         </ul>
                     </section>
 
                     <section>
                         <pre>
-                            <code data-trim class="hljs javascript ">
-import { Component } from '@angular/core';
+                            <code class="hljs javascript">
+import { Router } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 
-@Component({
-  selector: 'ngt-component',
-  template: `
-    <span>{{ user.address }}</span> // will display nothing
-    <span>{{ user?.address }}</span> // will display nothing
-    <span>{{ user.address.streetName }}</span> // will break horribly
-    <span>{{ user?.address?<div class="postalCode"></div> }}</span> // will display nothing
-  `
+const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'products',
+    loadChildren: './product/product.module#ProductModule'
+  }
+];
+
+@NgModule({ 
+  exports: [RouterModule.forRoot(routes)],
 })
-export class AppComponent {
-    protected user = {
-        name: 'Test',
-        address: null
+export class AppRoutingModule { }
+                            </code>
+                        </pre>  
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="hljs javascript">
+import { Router } from '@angular/router';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductDetailsComponent } from './details/product-details.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ProductListComponent
+  },
+  {
+    path: '/:id',
+    component: ProductDetailsComponent
+  }
+];
+
+@NgModule({ 
+  exports: [RouterModule.forChild(routes)],
+})
+export class ProductRoutingModule { }
+                            </code>
+                        </pre>  
+                    </section>
+
+                    <section>
+                        <h4>Assignment</h4>
+                        <ul>
+                            <li>Create an empty HomeComponent and add a route 'home' for it in the AppRoutingModule</li>
+                            <li>Create a ProductModule and move all the declarations to the ProductModule</li>
+                            <li>Create a ProductRoutingModule (add it to the imports section for the ProductModule as well) and define an empty route which loads the ProductListComponent</li>
+                            <li>Define a /:id route which loads the ProductDetailsComponent</li>
+                            <li>In the AppRoutingModule we need to remove the product relate routes and have only a product route which lazily loads the ProductModule</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Preloaders</h4>
+                        <ul>
+                            <li>During the app launch, it can preload all lazy modules in the background while the user is interacting with your app</li>
+                            <li>Add preloadingStrategy to the routes config</li>
+                        </ul>
+                        <pre>
+                            <code class="hljs javascript">
+const routes: Routes = [
+    ....
+];
+
+@NgModule({ 
+  exports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+})
+export class AppRoutingModule { }
+                            </code>
+                        </pre>
+                        <ul>
+                            <li>You can create a custom preloading strategy by creating a class that implements the PreloadingStrategy interface.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Guards</h4>
+                    </section>
+
+                    <section>
+                        <ul>
+                            <li>CanActivate mediates the navigation to a route</li>
+                            <li>CanActivateChild mediates the navigation to a child route </li>
+                            <li>CanDeactivate mediates the navigation away from the current route </li>
+                            <li>Resolve performs route data retrieval before route activation</li>
+                            <li>CanLoad mediates the navigation to a feature module loaded asynchronously</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <ul>
+                            <li>canActivate - allows navigating to a route if a certain canDeactivate - allows navigating from a route if a certain condition is met, e.g. the user is logged in</li>
+                            <li>canDeactivate - allows navigating from a route if a certain condition is met, e.g. prompting about saving changes</li>
+                        </ul>
+                        <pre>
+                            <code class="hljs javascript">
+const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'products',
+    loadChildren: './product/product.module#ProductModule',
+    canActivate: [LoginGuard],
+    canDeactivate: [UnsavedChangesGuard]
+  }
+];
+
+@NgModule({ 
+  exports: [RouterModule.forRoot(routes)],
+})
+export class AppRoutingModule { }
+                            </code>
+                        </pre>  
+                    </section>
+
+                    <section>
+                        <h4>Can Activate Guard</h4>
+                        <pre>
+                            <code class="hljs javascript">
+@Injectable()
+export class LoginGuard implements CanActivate {
+    constructor(private router: Router){} 
+    
+    canActivate() {
+        // A call to the actual login service would go here
+        // For now we'll just randomly return true or false
+        const loggedIn = Math.random() < 0.5;
+
+        if(!loggedIn){
+            alert("You're not logged in and will be redirected to Login page");
+            this.router.navigate(["/login"]);
+        }
+        return loggedIn; 
     }
 }
                             </code>
-                        </pre>
+                        </pre>  
+                    </section>
+
+                    <section>
+                        <h4>Can Deactivate Guard</h4>
+                        <pre>
+                            <code class="hljs javascript">
+export class UnsavedChangesGuard implements CanDeactivate&lt;ProductDetailComponent&gt; {
+    constructor(private _router:Router) { } 
+    
+    canDeactivate(component: ProductDetailComponent){
+        if (component.name.dirty) {
+            return window.confirm("You have unsaved changes. Still want to leave?");
+        }
+        return true;
+    }
+}
+                            </code>
+                        </pre>  
+                    </section>
+                    
+                    <section>
+                        <h4>Why should we preload data?</h4>
+                        <ul>
+                            <li>The connection is slow and it takes two seconds to retrieve the data. The user will look at the empty component for two seconds.</li>
+                            <li>
+                                If the server request returns an error, the user will look at the empty component just to see the error message.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <img src="./img/resolvers.png" height="600" />
                     </section>
                 </section>
 
                 <section>
-                    <p>Display an array property with *ngFor</p>
-                    <pre class="fragment">
-                    <code data-trim class="hljs javascript ">
-export class AppComponent {
-  carModels = ['A180', 'B180', 'B200', 'C200', 'E220', 'S180'];
-  myFavouriteModel = this.models[4];
-}
-                        </code>
-                    </pre>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript ">
-template: `
-    <h2>My favorite Mercedes is {{myFavouriteCar}}</h2>
-    <p>List</p>
-    <ul>
-    <li *ngFor="let model of models">
-        {{ model }}
-      </li>
-    </ul> `
-                        </code>
-                    </pre>
+                    <section>
+                        <h4>Forms</h4>
+                    </section>
+
+                    <section>
+                        <h4>Native implementation</h4>
+                        <img src="./img/native-forms.png" />
+                    </section>
+
+                    <section>
+                        <h4>SPA need more than just a native html form</h4>
+                        <ul>
+                            <li>Get a value from one or all form controls</li>
+                            <li>Validation for individual and grouped form controls Displaying error messages next to the form control </li>
+                            <li>Has the user changed or visited a form control? </li>
+                            <li>Event handling</li>
+                            <li>Dynamic creation of form controls</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>There are two types of forms API</h4>
+                        <ul>
+                            <li>Template-driven - the form model is defined in the component's template using directives. The underlying form model is created implicitly.</li>
+                            <li>Reactive - the developer explicitly creates an underlying form model in the TypeScript code.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <ul>
+                            <li>For template-driven forms: import <b style="color: green"> FormsModule </b> in @NgModule()</li>
+                            <li>For reactive forms : import <b style="color: green"> ReactiveFormsModule </b> in @NgModule()</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Reactive forms</h4>
+                        <ul>
+                            <li>Create a model programmatically in the TypeScript code</li>
+                            <li>Link HTML elements to this model using directives in the template You can dynamically configure validators</li>
+                            <li>You can use RxJS operators for handling form’s values</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Classes that help us create the Reactive Form</h4>
+                        <ul>
+                            <li><b style="color: green">FormControl</b> - represents a single form element</li>
+                            <li><b style="color: green">FormGroup</b> - represents a part of the form and is a collection of FormControls</li>
+                            <li><b style="color: green">FormArray</b> - similar to FormGroup, but it has variable length. It’s useful for creating form fields dynamically</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h4>Assignment</h4>
+                        <ul>
+                            <li>Create an AddProductComponent</li>
+                            <li>Create a new route for it (products/add)</li>
+                            <li>Add a button in the product list that links to the newly added route</li>
+                            <li>Using reactive forms create a form in order to add new products</li>
+                            <li>Save the product</li>
+                        </ul>
+                    </section>
                 </section>
 
                 <section>
-                    <p>Creating a class for the data</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript ">
-export class Product {
-  constructor(public id: number, public name: string) { }
-}
-                        </code>
-                    </pre>
-                    <p class="fragment">Using the <i>Product</i> class</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript ">
-products = [
-  new Product(1, 'Product #1'),
-  new Product(2, 'Product #2'),
-  new Product(3, 'Product #3'),
-  new Product(4, 'Product #4')
-  new Product(5, 'Product #5');
-  new Product(6, 'Product #6');
-];
-myFavoriteProduct= this.products[4];
-                        </code>
-                    </pre>
+                    <img src="./img/ngrx-intro.png">
                 </section>
 
                 <section>
-                    <p>Using the Product class in template</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript">
-template: `
-    <h2>My favorite product is: {{myFavouriteProduct.name}}</h2>
-    <p>Products:</p>
-    <ul>
-    <li *ngFor="let product of products">
-      {{ product.id }} - {{ product.name }}
-    </li>
-  </ul>
-`
-                        </code>
-                    </pre>
+                    <img src="./img/ngrx-store.png">
                 </section>
 
                 <section>
-                    <p>Conditional display with *ngIf</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript">
-template: `
-    <p *ngIf="products.length > 3">There are many products!</p>
-`
-                        </code>
-                    </pre>
+                    <h4>Assignments</h4>
+                    <ul>
+                        <li>Create 3x Actions (LoadProduct, Success, Error)</li>
+                        <li>Add a selectedProduct property to the product state, interface</li>
+                        <li>Handle the 3 action type cases in the reducer</li>
+                        <li>Create effect to handle the loading of the product</li>
+                        <li>Create getProduct method in the ProductsStoreService</li>
+                        <li>Refactor Details Component so that it uses the redux flow</li>
+                        <li>Change edit page resolver so that it works with the store approach</li>
+                    </ul>
                 </section>
 
-                <section>
-                    <p>Conditional adding css class on element</p>
-                    <pre class="fragment">
-                    <code data-trim class="hljs javascript">
-template: `
-    <ul>
-        <li *ngFor="let product of products" [ngClass]="{'highlight-css-class-name': product.name == 'Product #1'}">
-        {{ product.id }} - {{ product.name }}
-        </li>
-    </ul>
-`
-                        </code>
-                    </pre>
-                </section>
-
-                <section>
-                    <h3>User Input</h3>
-                </section>
-
-                <section>
-                    <p>Binding to user input events</p>
-                    <pre class="fragment">
-                    <code data-trim class="hljs javascript">
-@Component({
-  selector: 'click-me',
-  template: `
-    <button (click)="onClickMe()">Show my faourite product</button>
-    {{clickMessage}}`
-})
-export class ClickMeComponent {
-  clickMessage = '';
-  onClickMe() {
-    this.clickMessage = 'My favourite product is Product #1!';
-  }
-}
-
-                        </code>
-                    </pre>
-                </section>
-
-                <section>
-                    <p>Get user input from the $event object</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript">
-template: `
-    <input (keyup)="onKey($event)">
-    <p>{{values}}</p>
-`
-                        </code>
-                    </pre>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript">
-export class KeyUpComponent {
-  values = '';
-  onKey(event: any) { 
-    this.values = event.target.value;
-  }
-}
-                        </code>
-                    </pre>
-                </section>
-
-                <section>
-                    <p>Get user input from a template reference variable</p>
-                    <pre class="fragment">
-                    <code data-trim class="hljs javascript">
-@Component({
-  selector: 'my-app',
-  template: `
-                    <input #box (keyup)="0">
-                    <p>{{box.value}}</p>
-  `
-})
-export class LoopbackComponent { }
-                        </code>
-                    </pre>
-                </section>
-
-                <section>
-                    <p>Key event filtering (with key.enter)</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript">
-@Component({
-  selector: 'my-app',
-  template: `
-    <input #box (keyup.enter)="onEnter(box.value)">
-    <p>{{value}}</p>
-  `
-})
-export class KeyUpComponent {
-  value = '';
-  onEnter(value: string) { this.value = value; }
-}
-
-                        </code>
-                    </pre>
-                </section>
-
-                <section>
-                    <h3>COMPONENT STYLES</h3>
-                </section>
-
-                <section>
-                    <p>Using Component Styles</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript">
-@Component({
-  selector: 'my-app',
-  template: `
-    <h1>Cars</h1>
-    `,
-  styles: ['h1 { font-weight: normal; color: red; }']
-})
-export class CarAppComponent {
-/* . . . */
-}
-
-                        </code>
-                    </pre>
-                </section>
-
-                <section>
-                    <p>Style URLs in Metadata</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript">
-@Component({
-  selector: 'car-details',
-  template: `
-    <h2>{{car.id}}</h2>
-    <h2>{{car.name}}</h2>
-  `,
-  styleUrls: ['app/car-details.component.css']
-})
-export class CarDetailsComponent {
-/* . . . */
-}
-                        </code>
-                    </pre>
-                </section>
-
+                <!-- Testing -->
                 <section>
                     <section>
                         <p>Testing</p>
@@ -1738,7 +2176,7 @@ describe('AppComponent', () => {
                         <p>ng test --code-coverage</p>
                     </section>
                 </section>
-</div>
+            </div>
         </div>
 
         <script src="lib/js/head.min.js"></script>
