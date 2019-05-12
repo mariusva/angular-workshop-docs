@@ -109,69 +109,6 @@
                     </section>
                 </section>
 
-                <!-- Angular CLI -->
-
-                <section>
-                    <section>
-                        <p>Angular CLI</p><br />
-                        
-                        <a href="https://github.com/angular/angular-cli/wiki" target="_blank">Official documentation</a>
-                    </section>
-
-                    <section>
-                        <p>The Angular CLI helps us with:</p>
-                        <ul>
-                            <li>Scaffolding a new project that will serve as the base for our application</li>
-                            <li>Scaffolding components, directives, pipes, modules, etc.</li>
-                            <li>Has a built in development server to run our application</li>
-                            <li>Creates development and production builds</li>
-                            <li>Has built in configurable test runner (Karma as the testing framework and Jasmine as the assertion library)</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <p>Setting up the CLI</p>
-                        <ol>
-                            <li>npm i -g @angular/cli</li>
-                            <li>ng new project_name (add the --style=sass in order to generate the project using the sass css preprocessor)</li>
-                            <li>cd project_name</li>
-                            <li>ng serve -o</li>
-                        </ol>
-                    </section>
-
-                    <section>
-                        <p>Check the core files</p>
-                        <ul>
-                            <li>src directory</li>
-                            <li>main.ts file</li>
-                            <li>app.module</li>
-                            <li>angular.json</li>
-                            <li>package.json</li>
-                        </ul>
-                    </section>
-                    
-                    <section>
-                        <p>Angular CLI scaffolding commands</p>
-                        <ul>
-                            <li>ng g c component_name (ng generate component)</li>
-                            <li>ng g s service_name (ng generate service)</li>
-                            <li>ng g m module_name (ng generate module)</li>
-                            <li>ng generate --help</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <p>Recap</p>
-
-                        <ul>
-                            <li>We use the CLI to generate a new app (new new app_name)</li>
-                            <li>We can use the CLI to scaffold components, services, modules, etc.</li>
-                            <li>We use the CLI to serve our application in development mode</li>
-                            <li>We use the CLI to start our test runners</li>
-                        </ul>
-                    </section>
-                </section>
-
                 <!-- Typescript -->
 
                 <section>
@@ -642,6 +579,76 @@ workers.forEach(function (worker) { return worker.increasePay(30); });
                     </section>
                 </section>
 
+                <!-- The big picture -->
+                
+                <section>
+                    <p>The big picture</p>
+                    <img src="https://angular.io/generated/images/guide/architecture/overview2.png" alt="" class="custom-image">
+                </section>
+
+                <section>
+                    <section>
+                        <p>Angular CLI</p><br />
+                
+                        <a href="https://github.com/angular/angular-cli/wiki" target="_blank">Official documentation</a>
+                    </section>
+                
+                    <section>
+                        <p>The Angular CLI helps us with:</p>
+                        <ul>
+                            <li>Scaffolding a new project that will serve as the base for our application</li>
+                            <li>Scaffolding components, directives, pipes, modules, etc.</li>
+                            <li>Has a built in development server to run our application</li>
+                            <li>Creates development and production builds</li>
+                            <li>Has built in configurable test runner (Karma as the testing framework and Jasmine as the assertion
+                                library)</li>
+                        </ul>
+                    </section>
+                
+                    <section>
+                        <p>Setting up the CLI</p>
+                        <ol>
+                            <li>npm i -g @angular/cli</li>
+                            <li>ng new project_name (add the --style=sass in order to generate the project using the sass css
+                                preprocessor)</li>
+                            <li>cd project_name</li>
+                            <li>ng serve -o</li>
+                        </ol>
+                    </section>
+                
+                    <section>
+                        <p>Check the core files</p>
+                        <ul>
+                            <li>src directory</li>
+                            <li>main.ts file</li>
+                            <li>app.module</li>
+                            <li>angular.json</li>
+                            <li>package.json</li>
+                        </ul>
+                    </section>
+                
+                    <section>
+                        <p>Angular CLI scaffolding commands</p>
+                        <ul>
+                            <li>ng g c component_name (ng generate component)</li>
+                            <li>ng g s service_name (ng generate service)</li>
+                            <li>ng g m module_name (ng generate module)</li>
+                            <li>ng generate --help</li>
+                        </ul>
+                    </section>
+                
+                    <section>
+                        <p>Recap</p>
+                
+                        <ul>
+                            <li>We use the CLI to generate a new app (new new app_name)</li>
+                            <li>We can use the CLI to scaffold components, services, modules, etc.</li>
+                            <li>We use the CLI to serve our application in development mode</li>
+                            <li>We use the CLI to start our test runners</li>
+                        </ul>
+                    </section>
+                </section>
+
                 <section>
                     <p>Clone traning application</p>
                     <pre>
@@ -652,25 +659,6 @@ git fetch
 git checkout step1
 npm i
 npm start
-                        </code>
-                    </pre>
-                </section>
-                    
-                <section>
-                  <p>NgModules </p>
-                  <p class="fragment">- the basic building blocks of Angular</p>
-                  <p class="fragment">- provide a compilation context for components</p>
-                    <pre class="fragment">
-                        <code data-trim class="hljs javascript ">
-import { NgModule } from '@angular/core';
-
-@NgModule({
-    imports: [...],
-    declarations: [...]
-    exports: [...],
-    providers: [...]
-})
-export class AppModule { }
                         </code>
                     </pre>
                 </section>
@@ -1551,13 +1539,6 @@ interval(1000) // emits an integer every second
                     <section>
                         <h4>Hands On</h4>
                     </section>
-                </section>
-
-                <!-- The big picture -->
-
-                <section>
-                    <p>The big picture</p>
-                    <img src="https://angular.io/generated/images/guide/architecture/overview2.png" alt="" class="custom-image">
                 </section>
 
                 <!-- Ng modules -->
