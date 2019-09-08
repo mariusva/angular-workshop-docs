@@ -99,6 +99,11 @@
                     </section>
 
                     <section>
+                        <h4>Kahoot</h4>
+                        <a href="https://play.kahoot.it/v2/?quizId=872dd2d5-6f9a-48aa-a287-86f69bcabbe5" target="_blank">npm</a>
+                    </section>
+
+                    <section>
                         <p>Recap</p>
                         <ul>
                             <li>npm is a dependency managment tool</li>
@@ -197,13 +202,13 @@ p.age = 29;
                             <p>TypeScript</p>
                             <pre>
                                 <code class="hljs javascript">
-// Explicit types
+//Implicit types
 let productName = 'BMW';
 productName = 'Mercedes';
 // compile error in TS
 productName = 123; 
 
-//Implicit types
+// Explicit types
 let productVendor: string = 'Samsung';
 productVendor = 'Sony';
 // compile error in TS
@@ -215,7 +220,7 @@ productVendor = 123;
                             <p>JavaScript (ES5)</p>
                             <pre>
                                 <code class="hljs javascript">
-// Explicit types
+// Implicit types
 var productName = 'BMW';
 productName = 'Mercedes';
 // no compiler error in JS
@@ -609,7 +614,7 @@ workers.forEach(function (worker) { return worker.increasePay(30); });
                         <p>Setting up the CLI</p>
                         <ol>
                             <li>npm i -g @angular/cli</li>
-                            <li>ng new project_name (add the --style=sass in order to generate the project using the sass css
+                            <li>ng new project_name (add the --style=scss in order to generate the project using the scss css
                                 preprocessor)</li>
                             <li>cd project_name</li>
                             <li>ng serve -o</li>
@@ -789,6 +794,11 @@ export class NgtComponent {
                     </section>
 
                     <section>
+                        <h4>Kahoot</h4>
+                        <a href="https://play.kahoot.it/v2/?quizId=2029668b-604e-4b70-9ac6-3778f05de2ce" target="_blank">Components</a>
+                    </section>
+
+                    <section>
                         <p>Recap</p>
                         <ul>
                             <li>Javascript code can be used in the html using interpolation {{ ... }}</li>
@@ -886,11 +896,16 @@ export class ChildComponent {
                         <p>Assignment</p>
                         <ul>
                             <li>Create a product component</li>
-                            <li>Move the product card from the app.component.html to the newly created ProductComponent (html)  </li>
-                            <li>Pass in the product from the AppComponent to the ProcuctComponent using @Input</li>
+                            <li>Move the product card (&lt;div class="col-md-4"&gt;) from the app.component.html to the newly created ProductComponent (html)  </li>
+                            <li>Pass in the product from the AppComponent to the ProductComponent using @Input</li>
                             <li>Create an @Output from the ProductComponent that is triggered when the button is clicked</li>
                             <li>Create a ProductListComponent and move the interaction with the ProductComponent into it</li>
                         </ul>
+                    </section>
+
+                    <section>
+                        <h4>Kahoot</h4>
+                        <a href="https://play.kahoot.it/v2/?quizId=c4b8fe17-da02-4a24-ad76-b4348fff7c5f" target="_blank">Components communication</a>
                     </section>
 
                     <section>
@@ -899,7 +914,6 @@ export class ChildComponent {
                             <li>Components receive data from their parents via @Input() properties.</li>
                             <li>Components send data to their parents by emiting data through their @Output() properties.</li>
                             <li>The mediator pattern helps us achieve inter-component communication through a loosely-coupled manner.</li>
-                            <li>Using injectable services is the most flexible way of inter-component communication.</li>
                         </ul>
                     </section>
                 </section>
@@ -999,41 +1013,17 @@ export class ChildComponent { }
                     </section>
 
                     <section>
+                        <h4>Kahoot</h4>
+                        <a href="https://play.kahoot.it/v2/?quizId=d12f0402-b9d6-4142-bb66-4a1a67745f22" target="_blank">Content projection</a>
+                    </section>
+
+                    <section>
                         <p>Recap</p>
                         <ul>
                             <li>We can project content to a child component by using the &lt;ng-content&gt;</li>
                             <li>We can have multiple content projection by adding a select attribute to the &lt;ng-content&gt;</li>
                         </ul>
                     </section>
-                </section>
-
-                <!-- The View -->
-                
-                <section>
-                    <section>
-                        <h3>The View</h3>
-                        <ul>
-                            <li>Core concept of Angular</li>
-                            <li>Every component is represented as the View</li>
-                            <li>It's an abstraction that associates DOM nodes with the component class</li>
-                        </ul>
-                    </section>
-
-                    <section>
-                        <h3>Component to View</h3>
-                        <img src="./img/view-compiler.png" />
-                    </section>
-
-                    <section>
-                        <h3>DOM and View (one way relation)</h3>
-                        <img src="./img/view-dom.png" />
-                    </section>
-
-                    <section>
-                        <h3>DOM and View (one way relation)</h3>
-                        <img src="./img/viewContainer.png" />
-                    </section>
-
                 </section>
 
                 <!-- Directives -->
@@ -1168,8 +1158,12 @@ export class HighlightDirective {
                             <li>Specify a type for the products property</li>
                             <li>Use *ngFor to display the full list of products</li>
                             <li>Create a ZoomDirective that will make the image grow when hovered</li>
-                            <li>Create a FilterComponent that filters the product list based on the type property on the product</li>
                         </ul>
+                    </section>
+
+                    <section>
+                        <h4>Kahoot</h4>
+                        <a href="https://play.kahoot.it/v2/?quizId=5d568108-f4a7-4a23-b97b-c037bb6f221f" target="_blank">Directives</a>
                     </section>
 
                     <section>
@@ -1186,6 +1180,52 @@ export class HighlightDirective {
                         </ul>
                     </section>
                   </section>
+
+                <!-- The View -->
+                
+                <section>
+                    <section>
+                        <h3>The View</h3>
+                        <ul>
+                            <li>Core concept of Angular</li>
+                            <li>Every component is represented as the View</li>
+                            <li>It's an abstraction that associates DOM nodes with the component class</li>
+                        </ul>
+                    </section>
+                
+                    <section>
+                        <h3>Component to View</h3>
+                        <img src="./img/view-compiler.png" />
+                    </section>
+                
+                    <section>
+                        <h3>DOM and View (one way relation)</h3>
+                        <img src="./img/view-dom.png" />
+                    </section>
+
+                    <section>
+                        <ul>
+                            <li>
+                                @ViewChild
+                            </li>
+                            <li>
+                                @ViewChildren
+                            </li>
+                            <li>
+                                @ContentChild
+                            </li>
+                            <li>
+                                @ContentChildren
+                            </li>
+                        </ul>
+                    </section>
+                
+                    <section>
+                        <h3>DOM and View (one way relation)</h3>
+                        <img src="./img/viewContainer.png" />
+                    </section>
+                
+                </section>
 
                 <section>
                     <section>
@@ -1277,6 +1317,34 @@ export class ExampleComponent {
                     <section>
                         <pre>
                             <code data-trim class="hljs javascript ">
+import { Injectable } from '@angular/core';
+
+// @Injectable(provideIn: 'root')
+@Injectable()
+export class ListApiService { 
+    ...
+}
+                            </code>
+                        </pre> 
+    
+                        <pre>
+                            <code data-trim class="hljs javascript ">
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'ngt-component',
+  template: ``
+})
+export class AppComponent {
+    constructor(private listApiService: ListApiService) { }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code data-trim class="hljs javascript ">
 @NgModule({
     providers: [{ 
         provide: ListApiService,
@@ -1302,34 +1370,6 @@ class AppModule { }
     }]
 })
 class AppModule { }
-                            </code>
-                        </pre>
-                    </section>
-
-                    <section>
-                        <pre>
-                            <code data-trim class="hljs javascript ">
-import { Injectable } from '@angular/core';
-
-// @Injectable(provideIn: 'root')
-@Injectable()
-export class ListApiService { 
-    ...
-}
-                            </code>
-                        </pre> 
-    
-                        <pre>
-                            <code data-trim class="hljs javascript ">
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'ngt-component',
-  template: ``
-})
-export class AppComponent {
-    constructor(private listApiService: ListApiService) { }
-}
                             </code>
                         </pre>
                     </section>
@@ -1381,9 +1421,14 @@ export class AppComponent {
                         <p>Assignment</p>
                         <ul>
                             <li>Create a ListService </li>
-                            <li>Move the product list into the service</li>
-                            <li>Fetch the product list from the ListService</li>
+                            <li>Create a method that returns the product list from the ListService and use that in the ProductListComponent</li>
+                            <li>Create a MockListService with some dummy data and inject that instead of the ListService</li>
                         </ul>
+                    </section>
+
+                    <section>
+                        <h4>Kahoot</h4>
+                        <a href="https://play.kahoot.it/v2/?quizId=ada31e91-cc8f-485c-aaf5-8e959a0e8840" target="_blank">Services</a>
                     </section>
                 </section>
 
@@ -1501,6 +1546,11 @@ user.name = 'Mary'
                     </section>
 
                     <section>
+                        <h4>Kahoot</h4>
+                        <a href="https://play.kahoot.it/v2/?quizId=5ea690fb-bcf4-4425-a4fe-94969d6a7ca2" target="_blank">Change Detection</a>
+                    </section>
+
+                    <section>
                         <p>Recap</p>
 
                         <ul>
@@ -1574,6 +1624,11 @@ interval(1000) // emits an integer every second
 
                     <section>
                         <h4>Hands On</h4>
+                    </section>
+
+                    <section>
+                        <h4>Kahoot</h4>
+                        <a href="https://play.kahoot.it/v2/?quizId=f1e995fe-0307-4642-b29c-043863d95c73" target="_blank">Observables</a>
                     </section>
                 </section>
 
@@ -1704,6 +1759,11 @@ export class AppModule { }
                             <li>Move the ProductComponent and TagFilterComponent into the product-list directory</li>
                             <li>Move the product.model into the product directory</li>
                         </ul>
+                    </section>
+
+                    <section>
+                        <h4>Kahoot</h4>
+                        <a href="https://play.kahoot.it/v2/?quizId=c67faaa0-2a0d-4550-b634-198463a454ff" target="_blank">Observables</a>
                     </section>
 
                     <section>
@@ -2054,6 +2114,11 @@ export class UnsavedChangesGuard implements CanDeactivate&lt;ProductDetailCompon
                     <section>
                         <img src="./img/resolvers.png" height="600" />
                     </section>
+
+                    <section>
+                        <h4>Kahoot</h4>
+                        <a href="https://play.kahoot.it/v2/?quizId=6b17bde6-b52f-4692-996f-c818ef91caf5" target="_blank">Router</a>
+                    </section>
                 </section>
 
                 <section>
@@ -2119,6 +2184,11 @@ export class UnsavedChangesGuard implements CanDeactivate&lt;ProductDetailCompon
                             <li>Using reactive forms create a form in order to add new products</li>
                             <li>Save the product</li>
                         </ul>
+                    </section>
+
+                    <section>
+                        <h4>Kahoot</h4>
+                        <a href="https://play.kahoot.it/v2/?quizId=9c45b52a-a66b-4564-9774-989af05f81a7" target="_blank">Router</a>
                     </section>
                 </section>
 
